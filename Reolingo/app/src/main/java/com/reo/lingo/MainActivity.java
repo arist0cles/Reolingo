@@ -2,11 +2,14 @@ package com.reo.lingo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -37,14 +40,26 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        main = this;
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(previouslyStarted) {
+            Intent intent = new Intent(main, QuestionActivity.class);
+            startActivity(intent);
+        }
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+        edit.commit();
+
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,16 +70,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        main = this;
         setupButtons();
 
     }
 
     public void setupButtons(){
-        Button fiveMinButton = (Button) this.findViewById(R.id.fivemins);
-        Button tenMinButton = (Button) this.findViewById(R.id.tenmins);
-        Button fifthteenMinButton = (Button) this.findViewById(R.id.fifthteenmins);
-        Button twentyMinButton = (Button) this.findViewById(R.id.twentymins);
+        fiveMinButton = (Button) this.findViewById(R.id.fivemins);
+        tenMinButton = (Button) this.findViewById(R.id.tenmins);
+        fifthteenMinButton = (Button) this.findViewById(R.id.fifthteenmins);
+        twentyMinButton = (Button) this.findViewById(R.id.twentymins);
 
         fiveMinButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
