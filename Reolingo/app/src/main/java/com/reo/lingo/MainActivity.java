@@ -46,20 +46,12 @@ public class MainActivity extends AppCompatActivity
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
         if(previouslyStarted) {
             Intent intent = new Intent(main, QuestionActivity.class);
+            intent.putExtra("questionNum", "0");
             startActivity(intent);
         }
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
         edit.commit();
-
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -119,6 +111,7 @@ public class MainActivity extends AppCompatActivity
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface i, int j){
                                 Intent intent = new Intent(main, QuestionActivity.class);
+                                intent.putExtra("questionNum", "0");
                                 startActivity(intent);
                             }
                         }
