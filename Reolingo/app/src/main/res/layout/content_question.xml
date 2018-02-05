@@ -32,11 +32,12 @@
         app:layout_constraintHorizontal_bias="0.502" />
 
     <Button
-        android:id="@+id/cat"
+        android:id="@+id/ngeru"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:drawableBottom="@mipmap/cat"
-        android:text="ngeru"
+        android:text="Ngeru"
+
         android:layout_marginLeft="214dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="140dp"
@@ -46,11 +47,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/boy"
+        android:id="@+id/tama"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:drawableBottom="@mipmap/boy"
-        android:text="tama"
+
+        android:text="Tama"
+
         android:layout_marginLeft="36dp"
         android:layout_marginTop="140dp"
         android:layout_marginBottom="56dp"
@@ -60,22 +63,26 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/dog"
+        android:id="@+id/kuri"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:drawableBottom="@mipmap/dog"
-        android:text="kuri"
+
+        android:text="Kuri"
+
         android:layout_marginLeft="36dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="303dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/girl"
+        android:id="@+id/kotiro"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:drawableBottom="@mipmap/girl"
-        android:text="kotiro"
+
+        android:text="Kotiro"
+
         android:layout_marginLeft="214dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="303dp"

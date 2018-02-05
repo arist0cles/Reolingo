@@ -1,9 +1,13 @@
 package com.reo.lingo;
-
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,17 +17,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Button tamaButton;
+    private Button kotiroButton; //the right answer
+    private Button ngeruButton;
+    private Button kuriButton;
+    private boolean rightAnswer;
+
     private ProgressBar progress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,9 +69,85 @@ public class QuestionActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setupButtons();
     }
 
-    @Override
+    public void setupButtons() {
+        tamaButton = (Button) this.findViewById(R.id.tama);
+        kotiroButton = (Button) this.findViewById(R.id.kotiro);
+        ngeruButton = (Button) this.findViewById(R.id.ngeru);
+        kuriButton = (Button) this.findViewById(R.id.kuri);
+
+        tamaButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rightAnswer = false;
+                buttonChosen("tama");
+            }
+        });
+
+        kotiroButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    rightAnswer = true;
+                    Log.d("Right", "right Answer: ");
+                buttonChosen("kotiro");
+
+            }
+        }
+        );
+
+        ngeruButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rightAnswer = false;
+                buttonChosen("ngeru");
+            }
+        });
+
+        kuriButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rightAnswer = false;
+                buttonChosen("kuri");
+            }
+        });
+    }
+
+
+
+    public void buttonChosen(String name) {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
+        mp.start();
+
+        if(rightAnswer == false) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+            builder.setMessage(name + " is incorrect, Kotiro is the right answer")
+                    .setTitle("Aue")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface i, int j) {
+                                    //Intent intent = new Intent(main, QuestionActivity.class);
+                                    // startActivity(intent);
+                                }
+                            }
+                    );
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+        if (rightAnswer == true) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+            builder.setMessage(name + " is Correct")
+                    .setTitle("Ka Pai!")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface i, int j) {
+                                    //Intent intent = new Intent(main, QuestionActivity.class);
+                                    // startActivity(intent);
+                                }
+                            }
+                    );
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
