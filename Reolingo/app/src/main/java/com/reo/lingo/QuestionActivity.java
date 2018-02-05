@@ -1,8 +1,8 @@
 package com.reo.lingo;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +30,9 @@ public class QuestionActivity extends AppCompatActivity
     private Button kuriButton;
     private boolean rightAnswer;
 
+    private ProgressBar progress;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,26 @@ public class QuestionActivity extends AppCompatActivity
         setContentView(R.layout.activity_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("questionNum");
+            progress = (ProgressBar) this.findViewById(R.id.progress);
+            if(android.os.Build.VERSION.SDK_INT >= 24){
+                progress.setProgress(Integer.parseInt(value), true);
+            } else {
+                progress.setProgress(Integer.parseInt(value));
+            }
+
+
+
+
+            //Just for testing, delete later on
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, value, duration);
+            toast.show();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
