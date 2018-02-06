@@ -29,7 +29,7 @@ public class QuestionActivity extends AppCompatActivity
     private Button ngeruButton;
     private Button kuriButton;
     private boolean rightAnswer;
-
+    public int progressCounter = 0;
     private ProgressBar progress;
 
 
@@ -81,15 +81,15 @@ public class QuestionActivity extends AppCompatActivity
         tamaButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rightAnswer = false;
-                buttonChosen("tama");
+                buttonChosen("Tama");
             }
         });
 
         kotiroButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     rightAnswer = true;
-                    Log.d("Right", "right Answer: ");
-                buttonChosen("kotiro");
+                    progressCounter = progressCounter + 1;
+                buttonChosen("Kotiro");
 
             }
         }
@@ -98,14 +98,14 @@ public class QuestionActivity extends AppCompatActivity
         ngeruButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rightAnswer = false;
-                buttonChosen("ngeru");
+                buttonChosen("Ngeru");
             }
         });
 
         kuriButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rightAnswer = false;
-                buttonChosen("kuri");
+                buttonChosen("Kuri");
             }
         });
     }
@@ -118,7 +118,7 @@ public class QuestionActivity extends AppCompatActivity
 
         if(rightAnswer == false) {
             AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
-            builder.setMessage(name + " is incorrect, Kotiro is the right answer")
+            builder.setMessage(name + " is incorrect. The correct answer was Kotiro")
                     .setTitle("Aue")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface i, int j) {
@@ -134,7 +134,7 @@ public class QuestionActivity extends AppCompatActivity
         if (rightAnswer == true) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
-            builder.setMessage(name + " is Correct")
+            builder.setMessage(name + " is Correct. Your progress score has increased to " + progressCounter)
                     .setTitle("Ka Pai!")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface i, int j) {
