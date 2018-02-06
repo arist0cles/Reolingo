@@ -28,14 +28,12 @@ public class QuestionActivity extends AppCompatActivity
     private Button button2; //the right answer
     private Button button3;
     private Button button4;
-    private boolean rightAnswer;
     private AnswerTile a1;
     private AnswerTile a2;
     private AnswerTile a3;
     private AnswerTile a4;
+    private boolean rightAnswer;
     private QuestionActivity ques = this;
-
-    public int progressCounter = 0;
     private ProgressBar progress;
 
     @Override
@@ -48,35 +46,22 @@ public class QuestionActivity extends AppCompatActivity
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            a1 = (AnswerTile)getIntent().getParcelableExtra("tile1");
-            a2 = (AnswerTile)getIntent().getParcelableExtra("tile2");
-            a3 = (AnswerTile)getIntent().getParcelableExtra("tile3");
-            a4 = (AnswerTile)getIntent().getParcelableExtra("tile4");
+            a1 = (AnswerTile) getIntent().getParcelableExtra("tile1");
+            a2 = (AnswerTile) getIntent().getParcelableExtra("tile2");
+            a3 = (AnswerTile) getIntent().getParcelableExtra("tile3");
+            a4 = (AnswerTile) getIntent().getParcelableExtra("tile4");
 
-
-            String value = extras.getString("questionNum");
-
-            if(value.equals("0")){
+                String title = (String) extras.get("questionTitle");
                 TextView t = (TextView) this.findViewById(R.id.questionTitle);
-                t.setText("Which of these is 'the girl'?");
-            }
-            if(value.equals("1")){
-                TextView t = (TextView) this.findViewById(R.id.questionTitle);
-                t.setText("Which of these is 'the boy'?");
-            }
+                t.setText(title);
+
 
             progress = (ProgressBar) this.findViewById(R.id.progress);
-            if(android.os.Build.VERSION.SDK_INT >= 24){
-                progress.setProgress(Integer.parseInt(value), true);
+            if (android.os.Build.VERSION.SDK_INT >= 24) {
+                progress.setProgress(MainActivity.counter*25, true);
             } else {
-                progress.setProgress(Integer.parseInt(value));
+                progress.setProgress(MainActivity.counter*25);
             }
-
-            //Just for testing, delete later on
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, value, duration);
-            toast.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,88 +84,61 @@ public class QuestionActivity extends AppCompatActivity
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rightAnswer = false;
-                buttonChosen("Tama");
-                MediaPlayer tama = MediaPlayer.create(QuestionActivity.this,R.raw.tama);
-                tama.start();
+                if (a1.getCorrect()) {
+                    rightAnswer = true;
+                } else
+                    rightAnswer = false;
+                buttonChosen(a1.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a1.getSound());
+                mp.start();
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            public void onClick(View v) {
+                if (a2.getCorrect()) {
                     rightAnswer = true;
-                    progressCounter = progressCounter + 1;
-                    MediaPlayer kotiro = MediaPlayer.create(QuestionActivity.this,R.raw.kotiro);
-                    kotiro.start();
-                    buttonChosen("Kotiro");
-
+                } else
+                    rightAnswer = false;
+                buttonChosen(a2.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a2.getSound());
+                mp.start();
             }
-        }
-        );
+        });
 
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rightAnswer = false;
-                MediaPlayer ngeru = MediaPlayer.create(QuestionActivity.this,R.raw.ngeru);
-                ngeru.start();
-                buttonChosen("Ngeru");
+                if (a3.getCorrect()) {
+                    rightAnswer = true;
+                } else
+                    rightAnswer = false;
+                buttonChosen(a3.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a3.getSound());
+                mp.start();
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                rightAnswer = false;
-                MediaPlayer kuri = MediaPlayer.create(QuestionActivity.this,R.raw.kuri);
-                kuri.start();
-                buttonChosen("Kuri");
+                if (a4.getCorrect()) {
+                    rightAnswer = true;
+                } else
+                    rightAnswer = false;
+                buttonChosen(a4.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
+                mp.start();
             }
         });
+
     }
 
-
-
     public void buttonChosen(String name) {
+        if (rightAnswer) {
+            showCorrect(name);
 
-        if(rightAnswer == false) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
-            builder.setMessage(name + " is incorrect. The correct answer was Kotiro")
-                    .setTitle("Aue")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface i, int j) {
-                                    AnswerTile tile4 = new AnswerTile("Wa", R.mipmap.boy, R.raw.beep, false);
-                                    AnswerTile tile2 = new AnswerTile("Louie", R.mipmap.girl, R.raw.beep, false);
-                                    AnswerTile tile3 = new AnswerTile("Blah", R.mipmap.dog, R.raw.beep, false);
-                                    AnswerTile tile1 = new AnswerTile("Test", R.mipmap.girl, R.raw.beep, true);
 
-                                    Intent intent = new Intent(ques, QuestionActivity.class);
-                                    startActivity(intent);
-                                    intent.putExtra("questionNum", "1");
-                                    intent.putExtra("tile1", tile1);
-                                    intent.putExtra("tile2", tile2);
-                                    intent.putExtra("tile3", tile3);
-                                    intent.putExtra("tile4", tile4);
-                                    startActivity(intent);
-                                }
-                            }
-                    );
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
-
-        if (rightAnswer == true) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
-            builder.setMessage(name + " is Correct. Your progress score has increased to " + progressCounter)
-                    .setTitle("Ka Pai!")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface i, int j) {
-                                    //Intent intent = new Intent(main, QuestionActivity.class);
-                                    // startActivity(intent);
-                                }
-                            }
-                    );
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        } else {
+            showIncorrect(name);
         }
     }
         @Override
@@ -251,4 +209,53 @@ public class QuestionActivity extends AppCompatActivity
         button3.setBackground(this.getResources().getDrawable(a3.getImage()));
         button4.setBackground(this.getResources().getDrawable(a4.getImage()));
     }
-}
+      public void showIncorrect(String name) {
+          MainActivity.counter++;
+          MainActivity.wrongCounter++;
+          String correctWord = "Nah";
+          if(a1.getCorrect()){
+              correctWord = a1.getAnswer();
+          }
+          if(a2.getCorrect()){
+              correctWord = a2.getAnswer();
+          }
+          if(a3.getCorrect()){
+              correctWord = a3.getAnswer();
+          }
+          if(a4.getCorrect()){
+              correctWord = a4.getAnswer();
+          }
+          AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+          builder.setMessage("That was incorrect. The correct answer was " + correctWord)
+                  .setTitle("Aue")
+                  .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                              public void onClick(DialogInterface i, int j) {
+                                  Intent intent = new Intent(ques, MainActivity.class);
+                                  startActivity(intent);
+                              }
+                          }
+                  );
+          AlertDialog dialog = builder.create();
+          dialog.show();
+
+      }
+    public void showCorrect(String name){
+    //ALERT if its the right answer
+        MainActivity.counter++;
+        MainActivity.rightCounter++;
+    AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+            .setTitle("Ka Pai!")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface i, int j) {
+                        Intent intent = new Intent(ques, MainActivity.class);
+                        startActivity(intent);
+                        //ques.finish();
+                    }
+                        }
+                );
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+    }

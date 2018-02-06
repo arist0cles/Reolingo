@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,16 +32,21 @@ public class MainActivity extends AppCompatActivity
     private Button fifthteenMinButton;
     private Button twentyMinButton;
     private MainActivity main;
+    public static int counter = 0;
+    public static int wrongCounter = 0;
+    public static int rightCounter = 0;
 
-    //TODO: needs changing to the right sounds, all beeps ATM
-    private AnswerTile tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.beep, false);
-    private AnswerTile tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.beep, false);
-    private AnswerTile tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.beep, false);
-    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.beep, true);
+    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
+    private AnswerTile tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+    private AnswerTile tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+    private AnswerTile tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("Pat", "Create");
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,13 +56,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
         if(previouslyStarted) {
-            Intent intent = new Intent(main, QuestionActivity.class);
-            intent.putExtra("questionNum", "0");
-            intent.putExtra("tile1", tile1);
-            intent.putExtra("tile2", tile2);
-            intent.putExtra("tile3", tile3);
-            intent.putExtra("tile4", tile4);
-            startActivity(intent);
+            newQuestion();
         }
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
@@ -119,14 +119,7 @@ public class MainActivity extends AppCompatActivity
                 .setTitle("Chur")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface i, int j){
-                                Intent intent = new Intent(main, QuestionActivity.class);
-                                intent.putExtra("questionNum", "0");
-                                intent.putExtra("tile1", tile1);
-                                intent.putExtra("tile2", tile2);
-                                intent.putExtra("tile3", tile3);
-                                intent.putExtra("tile4", tile4);
-
-                                startActivity(intent);
+                                newQuestion();
                             }
                         }
                 );
@@ -193,7 +186,76 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void createTiles(){
+    public void newQuestion(){
+
+        switch(counter){
+            case 0: {
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the girl'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 1: {
+
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, true);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the boy'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 2: {
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, true);
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the dog'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 3: {
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, true);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the cat'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+        }
 
     }
 }
