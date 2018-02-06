@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity
     private Button twentyMinButton;
     private MainActivity main;
 
+    //TODO: needs changing to the right sounds, all beeps ATM
+    private AnswerTile tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.beep, false);
+    private AnswerTile tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.beep, false);
+    private AnswerTile tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.beep, false);
+    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.beep, true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,10 @@ public class MainActivity extends AppCompatActivity
         if(previouslyStarted) {
             Intent intent = new Intent(main, QuestionActivity.class);
             intent.putExtra("questionNum", "0");
+            intent.putExtra("tile1", tile1);
+            intent.putExtra("tile2", tile2);
+            intent.putExtra("tile3", tile3);
+            intent.putExtra("tile4", tile4);
             startActivity(intent);
         }
         SharedPreferences.Editor edit = prefs.edit();
@@ -112,6 +121,11 @@ public class MainActivity extends AppCompatActivity
                             public void onClick(DialogInterface i, int j){
                                 Intent intent = new Intent(main, QuestionActivity.class);
                                 intent.putExtra("questionNum", "0");
+                                intent.putExtra("tile1", tile1);
+                                intent.putExtra("tile2", tile2);
+                                intent.putExtra("tile3", tile3);
+                                intent.putExtra("tile4", tile4);
+
                                 startActivity(intent);
                             }
                         }
@@ -177,5 +191,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void createTiles(){
+
     }
 }
