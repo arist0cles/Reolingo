@@ -25,7 +25,7 @@ public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Button button1;
-    private Button button2; //the right answer
+    private Button button2;
     private Button button3;
     private Button button4;
     private AnswerTile a1;
@@ -239,18 +239,19 @@ public class QuestionActivity extends AppCompatActivity
           dialog.show();
 
       }
-    public void showCorrect(String name){
-    //ALERT if its the right answer
+
+    public void showCorrect(String name) {
+        //ALERT if its the right answer
         MainActivity.counter++;
         MainActivity.rightCounter++;
-    AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
         builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
-            .setTitle("Ka Pai!")
+                .setTitle("Ka Pai!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface i, int j) {
                         Intent intent = new Intent(ques, MainActivity.class);
                         startActivity(intent);
-                        //ques.finish();
+
                     }
                         }
                 );
@@ -259,3 +260,4 @@ public class QuestionActivity extends AppCompatActivity
 
     }
     }
+

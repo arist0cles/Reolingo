@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     public static int wrongCounter = 0;
     public static int rightCounter = 0;
 
-    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
+    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
     private AnswerTile tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
     private AnswerTile tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
     private AnswerTile tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if(previouslyStarted) {
+        if (previouslyStarted) {
             newQuestion();
         }
         SharedPreferences.Editor edit = prefs.edit();
@@ -75,13 +75,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void setupButtons(){
+    public void setupButtons() {
         fiveMinButton = (Button) this.findViewById(R.id.fivemins);
         tenMinButton = (Button) this.findViewById(R.id.tenmins);
         fifthteenMinButton = (Button) this.findViewById(R.id.fifthteenmins);
         twentyMinButton = (Button) this.findViewById(R.id.twentymins);
 
-        fiveMinButton.setOnClickListener(new View.OnClickListener(){
+        fiveMinButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //play success sound
                 //popup dialog
@@ -90,35 +90,35 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        tenMinButton.setOnClickListener(new View.OnClickListener(){
+        tenMinButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 studyTimeChosen(10);
             }
         });
 
-        fifthteenMinButton.setOnClickListener(new View.OnClickListener(){
+        fifthteenMinButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 studyTimeChosen(15);
             }
         });
 
-        twentyMinButton.setOnClickListener(new View.OnClickListener(){
+        twentyMinButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 studyTimeChosen(20);
             }
         });
     }
 
-    public void studyTimeChosen(int time){
+    public void studyTimeChosen(int time) {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
         mp.start();
         studyTime = time;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Ka Pai, I'll do my best to help you get to "+studyTime+" minutes a day")
+        builder.setMessage("Ka Pai, I'll do my best to help you get to " + studyTime + " minutes a day")
                 .setTitle("Chur")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface i, int j){
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface i, int j) {
                                 newQuestion();
                             }
                         }
@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -186,9 +185,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void newQuestion(){
+    public void newQuestion() {
 
-        switch(counter){
+        switch (counter) {
             case 0: {
                 tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
                 tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
@@ -252,10 +251,29 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("tile3", tile3);
                 intent.putExtra("tile4", tile4);
 
+
                 startActivity(intent);
                 break;
             }
-        }
+            case 4: {// last case. Review session
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+                int divide = (int) math;
+                builder.setMessage("Your overall score was "+ divide +"%")
+                        .setTitle("Ka Mau Te WEHI!")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface i, int j) {
+                                        Intent intent = new Intent(main, MainActivity.class);
+                                        startActivity(intent);
+
+                                    }
+                                }
+                        );
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+
+        }
     }
 }
