@@ -17,4 +17,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="WrongDialogTheme" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/red</item>
+
+    </style>
+
+    <style name="RightDialogTheme" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/green</item>
+    </style>
+
 </resources>

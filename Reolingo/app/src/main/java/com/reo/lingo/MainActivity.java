@@ -36,11 +36,10 @@ public class MainActivity extends AppCompatActivity
     public static int wrongCounter = 0;
     public static int rightCounter = 0;
 
-    private AnswerTile tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-    private AnswerTile tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-    private AnswerTile tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-    private AnswerTile tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
-
+    private AnswerTile tile1;
+    private AnswerTile tile2;
+    private AnswerTile tile3;
+    private AnswerTile tile4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

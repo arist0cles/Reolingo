@@ -225,7 +225,7 @@ public class QuestionActivity extends AppCompatActivity
           if(a4.getCorrect()){
               correctWord = a4.getAnswer();
           }
-          AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+          AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this, R.style.WrongDialogTheme);
           builder.setMessage("That was incorrect. The correct answer was " + correctWord)
                   .setTitle("Aue")
                   .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -239,6 +239,7 @@ public class QuestionActivity extends AppCompatActivity
           dialog.show();
 
       }
+<<<<<<< HEAD
 
     public void showCorrect(String name) {
         //ALERT if its the right answer
@@ -247,6 +248,15 @@ public class QuestionActivity extends AppCompatActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
         builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
                 .setTitle("Ka Pai!")
+=======
+    public void showCorrect(String name){
+        MainActivity.counter++;
+        MainActivity.rightCounter++;
+    AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this, R.style.RightDialogTheme);
+        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+            .setTitle("Ka Pai!")
+
+>>>>>>> 172a19fc9208b2a9e5b8c14f41a849ce87b60272
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface i, int j) {
                         Intent intent = new Intent(ques, MainActivity.class);
