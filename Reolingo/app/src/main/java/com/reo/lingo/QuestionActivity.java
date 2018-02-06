@@ -82,6 +82,8 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v) {
                 rightAnswer = false;
                 buttonChosen("Tama");
+                MediaPlayer tama = MediaPlayer.create(QuestionActivity.this,R.raw.tama);
+                tama.start();
             }
         });
 
@@ -89,7 +91,9 @@ public class QuestionActivity extends AppCompatActivity
                 public void onClick(View v) {
                     rightAnswer = true;
                     progressCounter = progressCounter + 1;
-                buttonChosen("Kotiro");
+                    MediaPlayer kotiro = MediaPlayer.create(QuestionActivity.this,R.raw.kotiro);
+                    kotiro.start();
+                    buttonChosen("Kotiro");
 
             }
         }
@@ -98,6 +102,8 @@ public class QuestionActivity extends AppCompatActivity
         ngeruButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rightAnswer = false;
+                MediaPlayer ngeru = MediaPlayer.create(QuestionActivity.this,R.raw.ngeru);
+                ngeru.start();
                 buttonChosen("Ngeru");
             }
         });
@@ -105,6 +111,8 @@ public class QuestionActivity extends AppCompatActivity
         kuriButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 rightAnswer = false;
+                MediaPlayer kuri = MediaPlayer.create(QuestionActivity.this,R.raw.kuri);
+                kuri.start();
                 buttonChosen("Kuri");
             }
         });
@@ -113,8 +121,6 @@ public class QuestionActivity extends AppCompatActivity
 
 
     public void buttonChosen(String name) {
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
-        mp.start();
 
         if(rightAnswer == false) {
             AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
