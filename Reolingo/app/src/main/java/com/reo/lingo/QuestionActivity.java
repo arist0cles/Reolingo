@@ -17,24 +17,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
+    private RelativeLayout tile1;
+    private RelativeLayout tile2;
+    private RelativeLayout tile3;
+    private RelativeLayout tile4;
+
+    private RelativeLayout highlighted;
+
     private AnswerTile a1;
     private AnswerTile a2;
     private AnswerTile a3;
     private AnswerTile a4;
+
     private boolean rightAnswer;
     private QuestionActivity ques = this;
     private ProgressBar progress;
+    private Button check;
+
+    private ImageView image1;
+    private ImageView image2;
+    private ImageView image3;
+    private ImageView image4;
+
+    private TextView text1;
+    private TextView text2;
+    private TextView text3;
+    private TextView text4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,59 +94,133 @@ public class QuestionActivity extends AppCompatActivity
     }
 
     public void setupButtons() {
-        button1 = (Button) this.findViewById(R.id.button1);
-        button2 = (Button) this.findViewById(R.id.button2);
-        button3 = (Button) this.findViewById(R.id.button3);
-        button4 = (Button) this.findViewById(R.id.button4);
-
-        button1.setOnClickListener(new View.OnClickListener() {
+        check = (Button) this.findViewById(R.id.check);
+        check.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (a1.getCorrect()) {
-                    rightAnswer = true;
-                } else
-                    rightAnswer = false;
-                buttonChosen(a1.getAnswer());
+                if(highlighted.getId() == R.id.tile1){
+                    if (a1.getCorrect()) {
+                        rightAnswer = true;
+                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mp.start();
+                    } else {
+                        rightAnswer = false;
+                    }
+                }
+                if(highlighted.getId() == R.id.tile2){
+                    if (a2.getCorrect()) {
+                        rightAnswer = true;
+                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mp.start();
+                    } else {
+                        rightAnswer = false;
+                    }
+                }
+                if(highlighted.getId() == R.id.tile3){
+                    if (a3.getCorrect()) {
+                        rightAnswer = true;
+                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mp.start();
+                    } else {
+                        rightAnswer = false;
+                    }
+                }
+                if(highlighted.getId() == R.id.tile4){
+                    if (a4.getCorrect()) {
+                        rightAnswer = true;
+                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mp.start();
+                    } else {
+                        rightAnswer = false;
+                    }
+                }
+            buttonChosen(a1.getAnswer());
+            }
+        });
+
+        image1 = (ImageView) this.findViewById(R.id.image1);
+        image2 = (ImageView) this.findViewById(R.id.image2);
+        image3 = (ImageView) this.findViewById(R.id.image3);
+        image4 = (ImageView) this.findViewById(R.id.image4);
+
+        tile1 = (RelativeLayout) this.findViewById(R.id.tile1);
+        tile2 = (RelativeLayout) this.findViewById(R.id.tile2);
+        tile3 = (RelativeLayout) this.findViewById(R.id.tile3);
+        tile4 = (RelativeLayout) this.findViewById(R.id.tile4);
+
+        tile1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                unhighlight();
+                highlight(tile1);
+//                if (a1.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a1.getAnswer());
                 MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a1.getSound());
                 mp.start();
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        tile2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (a2.getCorrect()) {
-                    rightAnswer = true;
-                } else
-                    rightAnswer = false;
-                buttonChosen(a2.getAnswer());
+                unhighlight();
+                highlight(tile2);
+//                if (a2.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a2.getAnswer());
                 MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a2.getSound());
                 mp.start();
             }
         });
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        tile3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (a3.getCorrect()) {
-                    rightAnswer = true;
-                } else
-                    rightAnswer = false;
-                buttonChosen(a3.getAnswer());
+                unhighlight();
+                highlight(tile3);
+//                if (a3.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a3.getAnswer());
                 MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a3.getSound());
                 mp.start();
             }
         });
 
-        button4.setOnClickListener(new View.OnClickListener() {
+        tile4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (a4.getCorrect()) {
-                    rightAnswer = true;
-                } else
-                    rightAnswer = false;
-                buttonChosen(a4.getAnswer());
+                unhighlight();
+                highlight(tile4);
+//                if (a4.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a4.getAnswer());
                 MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
                 mp.start();
             }
         });
 
+    }
+
+    public void highlight(RelativeLayout tile){
+        tile.setBackground(getResources().getDrawable(R.drawable.background_border));
+        tile.setBackgroundColor(getResources().getColor(R.color.red));
+        highlighted = tile;
+    }
+
+    public void unhighlight(){
+        tile1.setBackgroundColor(getResources().getColor(R.color.white));
+        tile2.setBackgroundColor(getResources().getColor(R.color.white));
+        tile3.setBackgroundColor(getResources().getColor(R.color.white));
+        tile4.setBackgroundColor(getResources().getColor(R.color.white));
+
+        tile1.setBackground(getResources().getDrawable(R.drawable.background_border));
+        tile2.setBackground(getResources().getDrawable(R.drawable.background_border));
+        tile3.setBackground(getResources().getDrawable(R.drawable.background_border));
+        tile4.setBackground(getResources().getDrawable(R.drawable.background_border));
     }
 
     public void buttonChosen(String name) {
@@ -199,15 +290,25 @@ public class QuestionActivity extends AppCompatActivity
     }
 
     private void setupTiles(AnswerTile a1, AnswerTile a2, AnswerTile a3, AnswerTile a4){
-        button1.setText(a1.getAnswer());
-        button2.setText(a2.getAnswer());
-        button3.setText(a3.getAnswer());
-        button4.setText(a4.getAnswer());
+        text1 = (TextView) this.findViewById(R.id.text1);
+        text2 = (TextView) this.findViewById(R.id.text2);
+        text3 = (TextView) this.findViewById(R.id.text3);
+        text4 = (TextView) this.findViewById(R.id.text4);
 
-        button1.setBackground(this.getResources().getDrawable(a1.getImage()));
-        button2.setBackground(this.getResources().getDrawable(a2.getImage()));
-        button3.setBackground(this.getResources().getDrawable(a3.getImage()));
-        button4.setBackground(this.getResources().getDrawable(a4.getImage()));
+        text1.setText(a1.getAnswer());
+        text2.setText(a2.getAnswer());
+        text3.setText(a3.getAnswer());
+        text4.setText(a4.getAnswer());
+
+        image1 = (ImageView) this.findViewById(R.id.image1);
+        image2 = (ImageView) this.findViewById(R.id.image2);
+        image3 = (ImageView) this.findViewById(R.id.image3);
+        image4 = (ImageView) this.findViewById(R.id.image4);
+
+        image1.setBackground(this.getResources().getDrawable(a1.getImage()));
+        image2.setBackground(this.getResources().getDrawable(a2.getImage()));
+        image3.setBackground(this.getResources().getDrawable(a3.getImage()));
+        image4.setBackground(this.getResources().getDrawable(a4.getImage()));
     }
       public void showIncorrect(String name) {
           MainActivity.counter++;

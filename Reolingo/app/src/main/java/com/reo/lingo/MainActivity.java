@@ -263,6 +263,9 @@ public class MainActivity extends AppCompatActivity
                         .setTitle("Ka Mau Te WEHI!")
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface i, int j) {
+                                        counter = 0;
+                                        wrongCounter = 0;
+                                        rightCounter = 0;
                                         Intent intent = new Intent(main, MainActivity.class);
                                         startActivity(intent);
 
