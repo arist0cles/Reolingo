@@ -8,4 +8,5 @@
     <string name="title_activity_question">Question</string>
     <string name="pref_previously_started">False</string>
     <string name="lastQCorrect">True</string>
+    <string name="title_activity_translate_question">TranslateQuestion</string>
 </resources>
