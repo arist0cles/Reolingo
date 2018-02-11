@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,11 @@ public class QuestionActivity extends AppCompatActivity
     private TextView text2;
     private TextView text3;
     private TextView text4;
+
+    private RadioButton radioButton1;
+    private RadioButton radioButton2;
+    private RadioButton radioButton3;
+    private RadioButton radioButton4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,10 +153,17 @@ public class QuestionActivity extends AppCompatActivity
         tile3 = (RelativeLayout) this.findViewById(R.id.tile3);
         tile4 = (RelativeLayout) this.findViewById(R.id.tile4);
 
+        radioButton1 = (RadioButton) this.findViewById(R.id.radio1);
+        radioButton2 = (RadioButton) this.findViewById(R.id.radio2);
+        radioButton3 = (RadioButton) this.findViewById(R.id.radio3);
+        radioButton4 = (RadioButton) this.findViewById(R.id.radio4);
+
+        //Tile Listeners
         tile1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 unhighlight();
                 highlight(tile1);
+                radioButton1.setChecked(true);
 //                if (a1.getCorrect()) {
 //                    rightAnswer = true;
 //                } else
@@ -165,6 +178,7 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v) {
                 unhighlight();
                 highlight(tile2);
+                radioButton2.setChecked(true);
 //                if (a2.getCorrect()) {
 //                    rightAnswer = true;
 //                } else
@@ -179,6 +193,7 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v) {
                 unhighlight();
                 highlight(tile3);
+                radioButton3.setChecked(true);
 //                if (a3.getCorrect()) {
 //                    rightAnswer = true;
 //                } else
@@ -193,11 +208,74 @@ public class QuestionActivity extends AppCompatActivity
             public void onClick(View v) {
                 unhighlight();
                 highlight(tile4);
+                radioButton4.setChecked(true);
 //                if (a4.getCorrect()) {
 //                    rightAnswer = true;
 //                } else
 //                    rightAnswer = false;
 //                buttonChosen(a4.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
+                mp.start();
+            }
+        });
+
+        //RadioButton Listeners
+        radioButton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                unhighlight();
+                highlight(tile1);
+                radioButton1.setChecked(true);
+//                if (a1.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a1.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a1.getSound());
+                mp.start();
+            }
+        });
+
+        radioButton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                unhighlight();
+                highlight(tile2);
+                radioButton2.setChecked(true);
+//                if (a1.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a1.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a2.getSound());
+                mp.start();
+            }
+        });
+
+        radioButton3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                unhighlight();
+                highlight(tile3);
+                radioButton3.setChecked(true);
+//                if (a1.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a1.getAnswer());
+                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a3.getSound());
+                mp.start();
+            }
+        });
+
+        radioButton4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                unhighlight();
+                highlight(tile4);
+                radioButton4.setChecked(true);
+               // radioButton4.setBackgroundColor(getResources().getColor(R.color.black)); doesn't make the button change colour
+//                if (a1.getCorrect()) {
+//                    rightAnswer = true;
+//                } else
+//                    rightAnswer = false;
+//                buttonChosen(a1.getAnswer());
                 MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
                 mp.start();
             }
@@ -221,6 +299,11 @@ public class QuestionActivity extends AppCompatActivity
         tile2.setBackground(getResources().getDrawable(R.drawable.background_border));
         tile3.setBackground(getResources().getDrawable(R.drawable.background_border));
         tile4.setBackground(getResources().getDrawable(R.drawable.background_border));
+
+        radioButton1.setChecked(false);
+        radioButton2.setChecked(false);
+        radioButton3.setChecked(false);
+        radioButton4.setChecked(false);
     }
 
     public void buttonChosen(String name) {
