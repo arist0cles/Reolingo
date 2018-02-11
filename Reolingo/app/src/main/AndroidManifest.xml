@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.reo.lingo">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,11 +19,54 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+                android:name=".QuestionActivity" />
+            <permission android:name="com.reo.lingo.MainActivity.permission.C2D_MESSAGE" android:protectionLevel="signature"
+                tools:ignore="WrongManifestParent" />
+
+            android:label="Reolingo"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity
-            android:name=".QuestionActivity"
-            android:label="@string/title_activity_question"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.reo.lingo.Reolingo.permission" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
+    <service
+        android:name=".MyFirebaseMessagingService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+        </intent-filter>
+    </service>
+
+    <service
+        android:name=".MyFirebaseInstanceIDService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+        </intent-filter>
+    </service>
+
+    <!--&lt;!&ndash; Set custom default icon. This is used when no icon is set for incoming notification messages.-->
+     <!--See README(https://goo.gl/l4GJaQ) for more. &ndash;&gt;-->
+    <!--<meta-data-->
+        <!--android:name="com.google.firebase.messaging.default_notification_icon"-->
+        <!--android:resource="@drawable/ic_stat_ic_notification" />-->
+    <!--&lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming-->
+         <!--notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;-->
+    <!--<meta-data-->
+        <!--android:name="com.google.firebase.messaging.default_notification_color"-->
+        <!--android:resource="@color/colorAccent" />-->
+
+    <!--<meta-data-->
+        <!--android:name="com.google.firebase.messaging.default_notification_channel_id"-->
+        <!--android:value="@string/default_notification_channel_id"/>-->
 </manifest>
+
