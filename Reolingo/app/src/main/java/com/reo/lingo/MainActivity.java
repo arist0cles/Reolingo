@@ -250,30 +250,31 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("tile3", tile3);
                 intent.putExtra("tile4", tile4);
 
-
                 startActivity(intent);
                 break;
             }
             case 4: {// last case. Review session
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
-                int divide = (int) math;
-                builder.setMessage("Your overall score was "+ divide +"%")
-                        .setTitle("Ka Mau Te WEHI!")
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface i, int j) {
-                                        counter = 0;
-                                        wrongCounter = 0;
-                                        rightCounter = 0;
-                                        Intent intent = new Intent(main, MainActivity.class);
-                                        startActivity(intent);
-
-                                    }
-                                }
-                        );
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Intent intent = new Intent(main, TranslateQuestion.class);
+                startActivity(intent);
+                break;
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+//                int divide = (int) math;
+//                builder.setMessage("Your overall score was "+ divide +"%")
+//                        .setTitle("Ka Mau Te WEHI!")
+//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface i, int j) {
+//                                        counter = 0;
+//                                        wrongCounter = 0;
+//                                        rightCounter = 0;
+//                                        Intent intent = new Intent(main, TranslateQuestion.class);
+//                                        startActivity(intent);
+//                                    }
+//                                }
+//                        );
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
 
         }
