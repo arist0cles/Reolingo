@@ -27,6 +27,8 @@ import android.widget.Toast;
 public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private MediaPlayer mediaPlayer;
+
     private RelativeLayout tile1;
     private RelativeLayout tile2;
     private RelativeLayout tile3;
@@ -103,11 +105,14 @@ public class QuestionActivity extends AppCompatActivity
         check = (Button) this.findViewById(R.id.check);
         check.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(highlighted == null){
+                    return;
+                }
                 if(highlighted.getId() == R.id.tile1){
                     if (a1.getCorrect()) {
                         rightAnswer = true;
-                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
-                        mp.start();
+                        mediaPlayer = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mediaPlayer.start();
                     } else {
                         rightAnswer = false;
                     }
@@ -115,8 +120,8 @@ public class QuestionActivity extends AppCompatActivity
                 if(highlighted.getId() == R.id.tile2){
                     if (a2.getCorrect()) {
                         rightAnswer = true;
-                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
-                        mp.start();
+                        mediaPlayer = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mediaPlayer.start();
                     } else {
                         rightAnswer = false;
                     }
@@ -124,8 +129,8 @@ public class QuestionActivity extends AppCompatActivity
                 if(highlighted.getId() == R.id.tile3){
                     if (a3.getCorrect()) {
                         rightAnswer = true;
-                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
-                        mp.start();
+                        mediaPlayer = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mediaPlayer.start();
                     } else {
                         rightAnswer = false;
                     }
@@ -133,8 +138,8 @@ public class QuestionActivity extends AppCompatActivity
                 if(highlighted.getId() == R.id.tile4){
                     if (a4.getCorrect()) {
                         rightAnswer = true;
-                        MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
-                        mp.start();
+                        mediaPlayer = MediaPlayer.create(QuestionActivity.this, R.raw.beep);
+                        mediaPlayer.start();
                     } else {
                         rightAnswer = false;
                     }
@@ -164,13 +169,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile1);
                 radioButton1.setChecked(true);
-//                if (a1.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a1.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a1.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a1.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -179,13 +179,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile2);
                 radioButton2.setChecked(true);
-//                if (a2.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a2.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a2.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a2.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -194,13 +189,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile3);
                 radioButton3.setChecked(true);
-//                if (a3.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a3.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a3.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a3.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -209,13 +199,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile4);
                 radioButton4.setChecked(true);
-//                if (a4.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a4.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a4.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -225,13 +210,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile1);
                 radioButton1.setChecked(true);
-//                if (a1.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a1.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a1.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a1.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -240,13 +220,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile2);
                 radioButton2.setChecked(true);
-//                if (a1.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a1.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a2.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a2.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -255,13 +230,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile3);
                 radioButton3.setChecked(true);
-//                if (a1.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a1.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a3.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a3.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -270,14 +240,8 @@ public class QuestionActivity extends AppCompatActivity
                 unhighlight();
                 highlight(tile4);
                 radioButton4.setChecked(true);
-               // radioButton4.setBackgroundColor(getResources().getColor(R.color.black)); doesn't make the button change colour
-//                if (a1.getCorrect()) {
-//                    rightAnswer = true;
-//                } else
-//                    rightAnswer = false;
-//                buttonChosen(a1.getAnswer());
-                MediaPlayer mp = MediaPlayer.create(QuestionActivity.this, a4.getSound());
-                mp.start();
+                mediaPlayer = MediaPlayer.create(QuestionActivity.this, a4.getSound());
+                mediaPlayer.start();
             }
         });
 
@@ -309,8 +273,6 @@ public class QuestionActivity extends AppCompatActivity
     public void buttonChosen(String name) {
         if (rightAnswer) {
             showCorrect(name);
-
-
         } else {
             showIncorrect(name);
         }
@@ -330,6 +292,12 @@ public class QuestionActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.question, menu);
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.release();
     }
 
     @Override
@@ -434,7 +402,6 @@ public class QuestionActivity extends AppCompatActivity
                     public void onClick(DialogInterface i, int j) {
                         Intent intent = new Intent(ques, MainActivity.class);
                         startActivity(intent);
-
                     }
                         }
                 );

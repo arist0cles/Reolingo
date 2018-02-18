@@ -1,0 +1,8 @@
+{
+	type: 'FOUR_PICTURE',
+	correctMaori: 'Tama',
+	correctEnglish: 'Boy',
+	options: ['Girl', 'Dog', 'Cat']
+	milestone: false,
+	sentence: ''
+}

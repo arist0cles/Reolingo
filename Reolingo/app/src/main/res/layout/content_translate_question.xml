@@ -53,23 +53,44 @@
 
         </LinearLayout>
 
-    <View style="@style/Divider"
-        android:background="#000000"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="50dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/answerImage1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="24sp"/>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/answerImage2"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginLeft="20dp" />-->
+
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3"
         android:paddingTop="50dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:weightSum="3">
 
     <TextView
         android:id="@+id/answer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="Cat"
         android:textColor="#000"
         android:textSize="24sp" />
@@ -79,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="Dog"
         android:textColor="#000"
         android:textSize="24sp" />
@@ -89,11 +110,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="The"
             android:textColor="#000"
             android:textSize="24sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check"/>
 
 </LinearLayout>

@@ -23,6 +23,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import exception.ReoJsonParserException;
+import jsonobj.Question;
+import parser.ReoJsonParser;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,7 +50,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("Pat", "Create");
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
         if (previouslyStarted) {
-            newQuestion();
+            startQuestions();
         }
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
@@ -71,7 +75,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setupButtons();
-
     }
 
     public void setupButtons() {
@@ -118,12 +121,137 @@ public class MainActivity extends AppCompatActivity
                 .setTitle("Chur")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                newQuestion();
+                                startQuestions();
                             }
                         }
                 );
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void startQuestions() {
+        switch (counter) {
+            case 0: {
+                Question q = getQuestion(0);
+                Class c = getQuestionClass(q);
+                Intent intent = new Intent(main, c);
+                //intent.putExtra("Question", q);
+
+                startActivity(intent);
+                break;
+            }
+            case 1: {
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the girl'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 2: {
+
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, true);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the boy'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 3: {
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, true);
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the dog'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 4: {
+                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
+                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, true);
+                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+
+                Intent intent = new Intent(main, QuestionActivity.class);
+                intent.putExtra("questionTitle", "Which of these is 'the cat'?");
+                intent.putExtra("tile1", tile1);
+                intent.putExtra("tile2", tile2);
+                intent.putExtra("tile3", tile3);
+                intent.putExtra("tile4", tile4);
+
+                startActivity(intent);
+                break;
+            }
+            case 5: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+                int divide = (int) math;
+                builder.setMessage("Your overall score was "+ divide +"%")
+                        .setTitle("Ka Mau Te WEHI!")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface i, int j) {
+                                        counter = 0;
+                                        wrongCounter = 0;
+                                        rightCounter = 0;
+                                        //TODO: Make this go to the module screen
+                                        Intent intent = new Intent(main, TranslateQuestion.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                        );
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
+    }
+
+    public Question getQuestion(int qNumber){
+        //TODO: Get Slades parser and use it here
+        ReoJsonParser j = new ReoJsonParser();
+        Question q = null;
+        String s = "modules/module1/question"+qNumber+".json";
+        try {
+            Object o = j.parseJSONFromFile(s);
+            q = (Question) o;
+        } catch (exception.ReoJsonParserException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return q;
+    }
+
+    public Class getQuestionClass(Question q){
+        //TODO: Write this to return one of the five question types
+        String question = q.getClass().getName();
+        return null;
+//        switch {
+//            case
+//        }
     }
 
     @Override
@@ -182,101 +310,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void newQuestion() {
-
-        switch (counter) {
-            case 0: {
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
-
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the girl'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
-
-                startActivity(intent);
-                break;
-            }
-            case 1: {
-
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, true);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
-
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the boy'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
-
-                startActivity(intent);
-                break;
-            }
-            case 2: {
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, true);
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-
-
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the dog'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
-
-                startActivity(intent);
-                break;
-            }
-            case 3: {
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, true);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
-
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the cat'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
-
-                startActivity(intent);
-                break;
-            }
-            case 4: {// last case. Review session
-
-                Intent intent = new Intent(main, TranslateQuestion.class);
-                startActivity(intent);
-                break;
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
-//                int divide = (int) math;
-//                builder.setMessage("Your overall score was "+ divide +"%")
-//                        .setTitle("Ka Mau Te WEHI!")
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface i, int j) {
-//                                        counter = 0;
-//                                        wrongCounter = 0;
-//                                        rightCounter = 0;
-//                                        Intent intent = new Intent(main, TranslateQuestion.class);
-//                                        startActivity(intent);
-//                                    }
-//                                }
-//                        );
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-            }
-
-        }
     }
 }

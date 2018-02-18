@@ -2,9 +2,12 @@ package com.reo.lingo;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +21,7 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -25,21 +29,16 @@ import org.w3c.dom.Text;
 public class TranslateQuestion extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView answerImage1;
+    private Button check;
+    private TranslateQuestion trans = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translate_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,45 +53,51 @@ public class TranslateQuestion extends AppCompatActivity
     }
 
     public void setupButtons() {
-        TextView a1 = (TextView) this.findViewById(R.id.answer1);
+        answerImage1 = (TextView) this.findViewById(R.id.answerImage1);
+        answerImage1.setBackground(getResources().getDrawable(R.drawable.background_border));
+
+        final TextView a1 = (TextView) this.findViewById(R.id.answer1);
         a1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                runAnimation(v);
+                answerImage1.setText(a1.getText());
             }
         });
 
-        TextView a2 = (TextView) this.findViewById(R.id.answer2);
+        final TextView a2 = (TextView) this.findViewById(R.id.answer2);
         a2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                runAnimation(v);
+                answerImage1.setText(a2.getText());
             }
         });
 
-        TextView a3 = (TextView) this.findViewById(R.id.answer3);
+        final TextView a3 = (TextView) this.findViewById(R.id.answer3);
         a3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                runAnimation(v);
+                answerImage1.setText(a3.getText());
             }
         });
-    }
 
-    private void runAnimation(View tv)
-    {
-        try {
-            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this,
-                    R.animator.move);
-            set.setTarget(tv);
-            set.start();
-
-//            Animation a = AnimationUtils.loadAnimation(this, R.anim.move_text);
-//            a.reset();
-//
-//            tv.clearAnimation();
-//            tv.startAnimation(a);
-        } catch (Exception e) {
-            String msg = e.toString();
-            Log.d("Pat", msg);
-        }
+        check = (Button) this.findViewById(R.id.check);
+        check.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(answerImage1.getText().equals("Cat")){
+                    MainActivity.counter++;
+                    MainActivity.rightCounter++;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TranslateQuestion.this, R.style.RightDialogTheme);
+                    builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+                            .setTitle("Ka Pai!")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface i, int j) {
+                                            Intent intent = new Intent(trans, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+                            );
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+            });
     }
 
     @Override
