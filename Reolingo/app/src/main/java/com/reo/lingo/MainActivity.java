@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
     public void startQuestions() {
         switch (counter) {
             case 0: {
-                Question q = getQuestion(0);
+                Question q = getQuestion(1);
                 Class c = getQuestionClass(q);
                 Intent intent = new Intent(main, c);
                 //intent.putExtra("Question", q);
@@ -233,9 +233,8 @@ public class MainActivity extends AppCompatActivity
         //TODO: Get Slades parser and use it here
         ReoJsonParser j = new ReoJsonParser();
         Question q = null;
-        String s = "modules/module1/question"+qNumber+".json";
         try {
-            Object o = j.parseJSONFromFile(s);
+            Object o = j.parseJSONFromFile(R.raw.question1);
             q = (Question) o;
         } catch (exception.ReoJsonParserException e){
             e.printStackTrace();

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\Reolingo.iml" filepath="C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\Reolingo.iml" />
-      <module fileurl="file://C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\app\app.iml" filepath="C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/Reolingo.iml" filepath="$PROJECT_DIR$/Reolingo.iml" />
+      <module fileurl="file://C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\Reolingo.iml" filepath="C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\Reolingo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\app\app.iml" filepath="C:\Users\jianw\Documents\BNZ Stuff\Pera Project\Reolingo\Reolingo\app\app.iml" />
     </modules>
   </component>
 </project>
