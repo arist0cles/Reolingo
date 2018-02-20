@@ -1,12 +1,9 @@
-package com.reo.lingo;
-import android.app.Activity;
+package com.reo.lingo.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,7 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.reo.lingo.Parceable.AnswerTile;
+import com.reo.lingo.R;
 
 public class QuestionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

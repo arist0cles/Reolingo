@@ -1,10 +1,7 @@
-package com.reo.lingo;
+package com.reo.lingo.Parceable;
 
-import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.File;
 
 /**
  * Created by patrick/louie on 6/02/18.

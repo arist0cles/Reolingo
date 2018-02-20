@@ -1,0 +1,28 @@
+{
+  "level" : 1,
+  "questions" : [ {
+    "type" : "easy",
+    "correctEnglish" : "yes",
+    "correctMaori" : "Kotiro",
+    "milestone" : false,
+    "sentence" : "Which of these is 'the girl'?"
+  }, {
+    "type" : "easy",
+    "correctEnglish" : "yes",
+    "correctMaori" : "Kuri",
+    "milestone" : false,
+    "sentence" : "Which of these is 'the girl'?"
+  },{
+    "type" : "easy",
+    "correctEnglish" : "yes",
+    "correctMaori" : "Kuri",
+    "milestone" : false,
+    "sentence" : "Which of these is 'the dog'?"
+  },{
+    "type" : "easy",
+    "correctEnglish" : "yes",
+    "correctMaori" : "Ngeru",
+    "milestone" : false,
+    "sentence" : "Which of these is 'the cat'?"
+  } ]
+}

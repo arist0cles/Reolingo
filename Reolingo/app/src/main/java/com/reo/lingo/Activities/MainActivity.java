@@ -1,4 +1,4 @@
-package com.reo.lingo;
+package com.reo.lingo.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +18,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import com.reo.lingo.Parceable.AnswerTile;
+import com.reo.lingo.R;
+import com.reo.lingo.ReoApplication;
+
+import java.io.InputStream;
+
+import jsonobj.Module;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,9 +45,26 @@ public class MainActivity extends AppCompatActivity
     private AnswerTile tile3;
     private AnswerTile tile4;
 
+    ReoApplication mApplication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*
+         create the application first this will be the gateway to any future lib requirements
+         this may include:
+                           backend http calls
+                           parsing tools
+                           etc
+         by doing so we can decouple the library and easily add to any future projects you may have as
+         it is generic behaviour
+        */
+        mApplication = new ReoApplication(this);
+
+        Module moduleOne = mApplication.loadModuleFromFile(R.raw.test);
+
+
 
         Log.d("Pat", "Create");
         setContentView(R.layout.activity_main);

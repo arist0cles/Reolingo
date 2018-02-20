@@ -1,4 +1,4 @@
-package com.reo.lingo;
+package com.reo.lingo.Activities;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
@@ -19,6 +19,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.reo.lingo.R;
 
 import org.w3c.dom.Text;
 
