@@ -1,28 +1,40 @@
 {
   "level" : 1,
   "questions" : [ {
-    "type" : "easy",
+    "type" : "FOUR_TILE_QUESTION",
     "correctEnglish" : "yes",
     "correctMaori" : "Kotiro",
     "milestone" : false,
-    "sentence" : "Which of these is 'the girl'?"
+    "sentence" : "Which of these is 'the girl'?",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
   }, {
-    "type" : "easy",
+    "type" : "FOUR_TILE_QUESTION",
     "correctEnglish" : "yes",
     "correctMaori" : "Kuri",
     "milestone" : false,
-    "sentence" : "Which of these is 'the girl'?"
+    "sentence" : "Which of these is 'the dog'?",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
   },{
-    "type" : "easy",
+    "type" : "FOUR_TILE_QUESTION",
     "correctEnglish" : "yes",
-    "correctMaori" : "Kuri",
+    "correctMaori" : "Tama",
     "milestone" : false,
-    "sentence" : "Which of these is 'the dog'?"
+    "sentence" : "Which of these is 'the boy'?",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
   },{
-    "type" : "easy",
+    "type" : "FOUR_TILE_QUESTION",
     "correctEnglish" : "yes",
     "correctMaori" : "Ngeru",
     "milestone" : false,
-    "sentence" : "Which of these is 'the cat'?"
+    "sentence" : "Which of these is 'the cat'?",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
   } ]
 }

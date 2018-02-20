@@ -19,11 +19,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.reo.lingo.Models.FourTileQuestion;
+import com.reo.lingo.Models.Question;
 import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 import com.reo.lingo.ReoApplication;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import jsonobj.Module;
 
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     ReoApplication mApplication;
 
+    List<Question> questions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +70,11 @@ public class MainActivity extends AppCompatActivity
 
         Module moduleOne = mApplication.loadModuleFromFile(R.raw.test);
 
+        questions = getQuestions(moduleOne);
 
 
-        Log.d("Pat", "Create");
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,6 +101,17 @@ public class MainActivity extends AppCompatActivity
 
         setupButtons();
 
+    }
+
+    public List<Question> getQuestions(Module m){
+        questions = new ArrayList<>();
+        for (jsonobj.Question q : m.questions){
+            switch(q.type){
+                case "FOUR_TILE_QUESTION":
+                    questions.add(new FourTileQuestion(q.correctMaori, q.sentence, q.options));
+            }
+        }
+        return questions;
     }
 
     public void setupButtons() {
@@ -209,67 +228,58 @@ public class MainActivity extends AppCompatActivity
 
         switch (counter) {
             case 0: {
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, true);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
 
+                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the girl'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
+                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("tile1", q.getTile(0));
+                intent.putExtra("tile2", q.getTile(1));
+                intent.putExtra("tile3", q.getTile(2));
+                intent.putExtra("tile4", q.getTile(3));
 
                 startActivity(intent);
                 break;
             }
             case 1: {
 
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, true);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
 
+                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the boy'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
+                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("tile1", q.getTile(0));
+                intent.putExtra("tile2", q.getTile(1));
+                intent.putExtra("tile3", q.getTile(2));
+                intent.putExtra("tile4", q.getTile(3));
 
                 startActivity(intent);
                 break;
             }
             case 2: {
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, true);
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, false);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
+                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
 
-
+                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the dog'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
+                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("tile1", q.getTile(0));
+                intent.putExtra("tile2", q.getTile(1));
+                intent.putExtra("tile3", q.getTile(2));
+                intent.putExtra("tile4", q.getTile(3));
 
                 startActivity(intent);
                 break;
             }
             case 3: {
-                tile1 = new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro, false);
-                tile4 = new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru, true);
-                tile2 = new AnswerTile("Tama", R.mipmap.boy, R.raw.tama, false);
-                tile3 = new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri, false);
+                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
 
+                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", "Which of these is 'the cat'?");
-                intent.putExtra("tile1", tile1);
-                intent.putExtra("tile2", tile2);
-                intent.putExtra("tile3", tile3);
-                intent.putExtra("tile4", tile4);
+                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("tile1", q.getTile(0));
+                intent.putExtra("tile2", q.getTile(1));
+                intent.putExtra("tile3", q.getTile(2));
+                intent.putExtra("tile4", q.getTile(3));
 
                 startActivity(intent);
                 break;
