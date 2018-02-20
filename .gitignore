@@ -33,7 +33,7 @@ proguard/
 captures/
 
 # IntelliJ
-.iml
+*.iml
 .idea/
 app/.iml
 
