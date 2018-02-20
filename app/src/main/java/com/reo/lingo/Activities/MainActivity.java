@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         for (jsonobj.Question q : m.questions){
             switch(q.type){
                 case "FOUR_TILE_QUESTION":
-                    questions.add(new FourTileQuestion(q.correctMaori, q.sentence, q.options));
+                    questions.add(new FourTileQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options));
             }
         }
         return questions;
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity
 
                 //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("questionTitle", q.getQuestionText());
                 intent.putExtra("tile1", q.getTile(0));
                 intent.putExtra("tile2", q.getTile(1));
                 intent.putExtra("tile3", q.getTile(2));
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity
 
                 //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("questionTitle", q.getQuestionText());
                 intent.putExtra("tile1", q.getTile(0));
                 intent.putExtra("tile2", q.getTile(1));
                 intent.putExtra("tile3", q.getTile(2));
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity
 
                 //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("questionTitle", q.getQuestionText());
                 intent.putExtra("tile1", q.getTile(0));
                 intent.putExtra("tile2", q.getTile(1));
                 intent.putExtra("tile3", q.getTile(2));
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity
 
                 //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
                 Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.questionText);
+                intent.putExtra("questionTitle", q.getQuestionText());
                 intent.putExtra("tile1", q.getTile(0));
                 intent.putExtra("tile2", q.getTile(1));
                 intent.putExtra("tile3", q.getTile(2));

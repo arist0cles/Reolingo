@@ -14,10 +14,13 @@ public class FourTileQuestion extends Question {
 
     private List<AnswerTile> tiles;
 
-    public FourTileQuestion(String answer, String questionText, List<String> options){
+    public FourTileQuestion(String correctEnglish, String correctMaori,  String questionText, List<String> options){
         tiles = new ArrayList<>();
-        this.answer = answer;
-        this.questionText = questionText;
+        this.correctEnglish = correctEnglish;
+        this.correctMaori = correctMaori;
+        this.questionText = questionText + "\"" + correctEnglish + "\"?";
+
+
         for(String s : options){
             tiles.add(makeTiles(s));
         }

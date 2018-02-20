@@ -7,6 +7,11 @@ import java.util.List;
  */
 
 public abstract class Question {
-    public String answer;
-    public String questionText;
+    protected String correctEnglish;
+    protected String correctMaori;
+    protected String questionText;
+
+    public String getQuestionText(){
+        return questionText;
+    }
 }
