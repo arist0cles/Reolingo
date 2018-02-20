@@ -39,6 +39,9 @@ captures/
 .idea/gradle.xml
 .idea/dictionaries
 .idea/libraries
+Reolingo/.idea/
+
+Reolingo/.idea/modules.xml
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
