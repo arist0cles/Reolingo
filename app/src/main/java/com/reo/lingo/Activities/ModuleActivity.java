@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -82,21 +83,20 @@ public class ModuleActivity extends AppCompatActivity
                 }
             }
         });
-
     }
 
     public boolean isCorrect(){
         //TODO: write this shit
         //Get the selected word
         //check if the selected word is the same as the question correct maori
+        FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
+        String selected = f.getSelected();
+        //String selected =
+        String correctAnswer = currentQuestion.getCorrectEnglish();
+        if(correctAnswer.equals(selected)){
+            return true;
+        }
 
-       FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
-       String selected = f.getSelected();
-//        String correctAnswer = currentQuestion.getCorrectMaori();
-//
-//        if(correctAnswer.equals(selected)){
-//            return true;
-//        }
         return false;
     }
 
@@ -187,13 +187,13 @@ public class ModuleActivity extends AppCompatActivity
         }
     }
 
-    public void buttonChosen(String name) {
+  //  public void buttonChosen(String name) {
 //        if (rightAnswer) {
 //            showCorrect(name);
 //        } else {
 //            showIncorrect(name);
 //        }
-    }
+   // }
         @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -227,8 +227,8 @@ public class ModuleActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    //@Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

@@ -39,6 +39,8 @@ public class FourTileQuestion extends Question {
         Bundle thingsToPass = new Bundle();
         //TODO: Create the answer tiles in here
         thingsToPass.putString("questionTitle", questionText);
+        thingsToPass.putString("correctEnglish", correctEnglish);
+        thingsToPass.putString("correctMaori", correctMaori);
         thingsToPass.putParcelable("tile1", getTile(0));
         thingsToPass.putParcelable("tile2", getTile(1));
         thingsToPass.putParcelable("tile3", getTile(2));
