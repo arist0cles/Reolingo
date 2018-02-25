@@ -141,7 +141,9 @@ public class ModuleActivity extends AppCompatActivity
                 .setTitle("Ka Pai!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                //TODO: Get 'You fucked up' sound to play
+                                //TODO: Base this on the counter
+                                currentQuestion = questions.get(MainActivity.counter);
+                                start(questions.get(MainActivity.counter));
 //                                Intent intent = new Intent(ques, MainActivity.class);
 //                                startActivity(intent);
 
