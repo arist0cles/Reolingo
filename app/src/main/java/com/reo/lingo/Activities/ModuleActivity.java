@@ -1,6 +1,7 @@
 package com.reo.lingo.Activities;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -88,12 +89,14 @@ public class ModuleActivity extends AppCompatActivity
         //TODO: write this shit
         //Get the selected word
         //check if the selected word is the same as the question correct maori
-        FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
-        String selected = f.getSelected();
-        String correctAnswer = currentQuestion.getCorrectMaori();
-        if(correctAnswer.equals(selected)){
-            return true;
-        }
+
+       FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
+       String selected = f.getSelected();
+//        String correctAnswer = currentQuestion.getCorrectMaori();
+//
+//        if(correctAnswer.equals(selected)){
+//            return true;
+//        }
         return false;
     }
 
@@ -121,7 +124,9 @@ public class ModuleActivity extends AppCompatActivity
                 .setTitle("Aue")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                //TODO: Get happy sound to play
+                                //TODO: Get 'You fucked up' sound to play
+                                MediaPlayer incorrect = MediaPlayer.create(ModuleActivity.this, R.raw.incorrect);
+                                incorrect.start();
 //                                Intent intent = new Intent(ques, MainActivity.class);
 //                                startActivity(intent);
                             }
@@ -141,7 +146,9 @@ public class ModuleActivity extends AppCompatActivity
                 .setTitle("Ka Pai!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                //TODO: Get 'You fucked up' sound to play
+                                //TODO: Get happy sound to play
+                                MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
+                                correct.start();
 //                                Intent intent = new Intent(ques, MainActivity.class);
 //                                startActivity(intent);
 
