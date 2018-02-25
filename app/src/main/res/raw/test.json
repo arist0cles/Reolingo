@@ -1,0 +1,54 @@
+{
+  "level" : 1,
+  "questions" : [ {
+    "type" : "FOUR_TILE_QUESTION",
+    "correctEnglish" : "the girl",
+    "correctMaori" : "Kotiro",
+    "milestone" : false,
+    "sentence" : "Which of these is ",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
+  }, {
+    "type" : "FOUR_TILE_QUESTION",
+    "correctEnglish" : "the dog",
+    "correctMaori" : "Kuri",
+    "milestone" : false,
+    "sentence" : "Which of these is ",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
+  },{
+    "type" : "FOUR_TILE_QUESTION",
+    "correctEnglish" : "the boy",
+    "correctMaori" : "Tama",
+    "milestone" : false,
+    "sentence" : "Which of these is ",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
+  },{
+    "type" : "FOUR_TILE_QUESTION",
+    "correctEnglish" : "the cat",
+    "correctMaori" : "Ngeru",
+    "milestone" : false,
+    "sentence" : "Which of these is ",
+    "options" : [
+      "Kotiro", "Kuri", "Tama", "Ngeru"
+    ]
+  },
+    {
+      "type": "FOUR_TILE_QUESTION",
+      "correctEnglish": "the cat",
+      "correctMaori": "Ngeru",
+      "milestone": true,
+      "sentence": "Which of these is ",
+      "options": [
+        "Kotiro",
+        "Kuri",
+        "Tama",
+        "Ngeru"
+      ]
+    }
+    ]
+}
