@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +24,6 @@ import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 import com.reo.lingo.ReoApplication;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,14 +42,9 @@ public class MainActivity extends AppCompatActivity
     public static int wrongCounter = 0;
     public static int rightCounter = 0;
 
-    private AnswerTile tile1;
-    private AnswerTile tile2;
-    private AnswerTile tile3;
-    private AnswerTile tile4;
-
     ReoApplication mApplication;
 
-    List<Question> questions;
+    List<Question> questions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +63,9 @@ public class MainActivity extends AppCompatActivity
 
         Module moduleOne = mApplication.loadModuleFromFile(R.raw.test);
 
-        questions = getQuestions(moduleOne);
+        questions = (ArrayList<Question>) getQuestions(moduleOne);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,7 +90,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setupButtons();
-
     }
 
     public List<Question> getQuestions(Module m){
@@ -173,7 +165,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -222,89 +213,61 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void newQuestion() {
-
         switch (counter) {
             case 0: {
                 FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-
-                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.getQuestionText());
-                intent.putExtra("tile1", q.getTile(0));
-                intent.putExtra("tile2", q.getTile(1));
-                intent.putExtra("tile3", q.getTile(2));
-                intent.putExtra("tile4", q.getTile(3));
-
-                startActivity(intent);
+                askQuestion();
                 break;
             }
             case 1: {
-
                 FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-
-                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.getQuestionText());
-                intent.putExtra("tile1", q.getTile(0));
-                intent.putExtra("tile2", q.getTile(1));
-                intent.putExtra("tile3", q.getTile(2));
-                intent.putExtra("tile4", q.getTile(3));
-
-                startActivity(intent);
+                askQuestion();
                 break;
             }
             case 2: {
                 FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-
-                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.getQuestionText());
-                intent.putExtra("tile1", q.getTile(0));
-                intent.putExtra("tile2", q.getTile(1));
-                intent.putExtra("tile3", q.getTile(2));
-                intent.putExtra("tile4", q.getTile(3));
-
-                startActivity(intent);
+                askQuestion();
                 break;
             }
             case 3: {
                 FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-
-                //TODO: Refactor QuestionActivity to Module Activity with the Module JSON passed in
-                Intent intent = new Intent(main, QuestionActivity.class);
-                intent.putExtra("questionTitle", q.getQuestionText());
-                intent.putExtra("tile1", q.getTile(0));
-                intent.putExtra("tile2", q.getTile(1));
-                intent.putExtra("tile3", q.getTile(2));
-                intent.putExtra("tile4", q.getTile(3));
-
-                startActivity(intent);
+                askQuestion();
                 break;
             }
             case 4: {// last case. Review session
-
-                Intent intent = new Intent(main, TranslateQuestion.class);
-                startActivity(intent);
-                break;
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
-//                int divide = (int) math;
-//                builder.setMessage("Your overall score was "+ divide +"%")
-//                        .setTitle("Ka Mau Te WEHI!")
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface i, int j) {
-//                                        counter = 0;
-//                                        wrongCounter = 0;
-//                                        rightCounter = 0;
-//                                        Intent intent = new Intent(main, TranslateQuestion.class);
-//                                        startActivity(intent);
-//                                    }
-//                                }
-//                        );
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+                int divide = (int) math;
+                builder.setMessage("Your overall score was "+ divide +"%")
+                        .setTitle("Ka Mau Te WEHI!")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface i, int j) {
+                                        counter = 0;
+                                        wrongCounter = 0;
+                                        rightCounter = 0;
+                                        Intent intent = new Intent(main, TranslateQuestion.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                        );
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
 
         }
+    }
+
+    public void askQuestion(){
+        ArrayList<Question> q = (ArrayList<Question>) questions;
+        Intent intent = new Intent(main, ModuleActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("questions", q);
+        intent.putExtras(bundle);
+//        intent.putExtra("questionTitle", q.getQuestionText());
+//        intent.putExtra("tile1", q.getTile(0));
+//        intent.putExtra("tile2", q.getTile(1));
+//        intent.putExtra("tile3", q.getTile(2));
+//        intent.putExtra("tile4", q.getTile(3));
+        startActivity(intent);
     }
 }

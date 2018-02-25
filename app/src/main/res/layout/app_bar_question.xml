@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reo.lingo.Activities.QuestionActivity">
+    tools:context="com.reo.lingo.Activities.ModuleActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,35 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_question" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.reo.lingo.Activities.ModuleActivity"
+        tools:showIn="@layout/app_bar_question"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+
+        <FrameLayout android:id="@+id/fragment_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check"/>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

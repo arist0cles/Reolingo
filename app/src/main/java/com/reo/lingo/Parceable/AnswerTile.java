@@ -12,13 +12,11 @@ public class AnswerTile implements Parcelable {
     private String answer;
     private int image;
     private int sound;
-    private boolean correct;
 
-    public AnswerTile(String answer, int image, int sound, boolean correct) {
+    public AnswerTile(String answer, int image, int sound) {
         this.answer = answer;
         this.image = image;
         this.sound = sound;
-        this.correct = correct;
     }
 
     @Override
@@ -31,11 +29,6 @@ public class AnswerTile implements Parcelable {
         out.writeString(answer);
         out.writeInt(image);
         out.writeInt(sound);
-        if(this.correct){
-            out.writeInt(1);
-        } else {
-            out.writeInt(0);
-        }
     }
 
     public static final Parcelable.Creator<AnswerTile> CREATOR
@@ -53,7 +46,6 @@ public class AnswerTile implements Parcelable {
         this.answer = in.readString();
         this.image = in.readInt();
         this.sound = in.readInt();
-        this.correct = (in.readInt() == 1) ? true: false;
     }
 
     public String getAnswer(){
@@ -68,7 +60,7 @@ public class AnswerTile implements Parcelable {
         return sound;
     }
 
-    public boolean getCorrect(){
-        return correct;
+    public boolean getCorrect(String guess){
+        return guess.equals(answer);
     }
 }

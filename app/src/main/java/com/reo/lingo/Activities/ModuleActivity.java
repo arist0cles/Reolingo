@@ -1,11 +1,11 @@
 package com.reo.lingo.Activities;
-
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
+import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,28 +15,51 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.reo.lingo.Fragments.FourTileQuestionFragment;
+import com.reo.lingo.Fragments.TranslateQuestionFragment;
+import com.reo.lingo.Models.FourTileQuestion;
+import com.reo.lingo.Models.Question;
+import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 
-public class TranslateQuestion extends AppCompatActivity
+import java.util.List;
+
+public class ModuleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int QUESTION_PROGRESS_AMOUNT = 10;
+
+    private ModuleActivity ques = this;
+    private ProgressBar progress;
+    private Button check;
+
+    private List<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.translate_drawer);
+
+        setContentView(R.layout.question_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            questions = getIntent().getParcelableArrayListExtra("questions");
+            //TODO: Parse questions and give startQuestions the first one
+            if(questions != null){
+                start(questions.get(0));
             }
-        });
+
+            setProgress();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,53 +69,43 @@ public class TranslateQuestion extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        setupButtons();
     }
 
-    public void setupButtons() {
-        TextView a1 = (TextView) this.findViewById(R.id.answer1);
-        a1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                runAnimation(v);
-            }
-        });
+    public void start(Question q){
+        // Create new fragment and transaction
+        android.support.v4.app.Fragment newFragment = q.getFragment();
+        Bundle bundle = q.getBundle();
 
-        TextView a2 = (TextView) this.findViewById(R.id.answer2);
-        a2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                runAnimation(v);
-            }
-        });
+        //TODO: Attach answertiles to bundle
+        newFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        TextView a3 = (TextView) this.findViewById(R.id.answer3);
-        a3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                runAnimation(v);
-            }
-        });
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transaction.replace(R.id.fragment_placeholder, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 
-    private void runAnimation(View tv)
-    {
-        try {
-            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this,
-                    R.animator.move);
-            set.setTarget(tv);
-            set.start();
-
-//            Animation a = AnimationUtils.loadAnimation(this, R.anim.move_text);
-//            a.reset();
-//
-//            tv.clearAnimation();
-//            tv.startAnimation(a);
-        } catch (Exception e) {
-            String msg = e.toString();
-            Log.d("Pat", msg);
+    public void setProgress(){
+        progress = (ProgressBar) this.findViewById(R.id.progress);
+        if (android.os.Build.VERSION.SDK_INT >= 24) {
+            progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT, true);
+        } else {
+            progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT);
         }
     }
 
-    @Override
+    public void buttonChosen(String name) {
+//        if (rightAnswer) {
+//            showCorrect(name);
+//        } else {
+//            showIncorrect(name);
+//        }
+    }
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -105,7 +118,7 @@ public class TranslateQuestion extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.translate_question, menu);
+        getMenuInflater().inflate(R.menu.question, menu);
         return true;
     }
 
@@ -148,4 +161,5 @@ public class TranslateQuestion extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+    }
+
