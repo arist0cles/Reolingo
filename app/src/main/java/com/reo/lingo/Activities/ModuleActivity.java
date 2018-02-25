@@ -89,6 +89,7 @@ public class ModuleActivity extends AppCompatActivity
         //TODO: write this shit
         //Get the selected word
         //check if the selected word is the same as the question correct maori
+
         FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
         String selected = f.getSelected();
         //String selected =
@@ -119,14 +120,16 @@ public class ModuleActivity extends AppCompatActivity
 //            correctWord = a4.getAnswer();
 //        }
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
-        //TODO: Attach the correct word
+        //TODO: Get 'You fucked up' sound to play
+
+        MediaPlayer incorrect = MediaPlayer.create(ModuleActivity.this, R.raw.incorrect);
+        incorrect.start();
         builder.setMessage("That was incorrect. The correct answer was ")
                 .setTitle("Aue")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                //TODO: Get 'You fucked up' sound to play
-                                MediaPlayer incorrect = MediaPlayer.create(ModuleActivity.this, R.raw.incorrect);
-                                incorrect.start();
+
+
 //                                Intent intent = new Intent(ques, MainActivity.class);
 //                                startActivity(intent);
                             }
@@ -141,14 +144,17 @@ public class ModuleActivity extends AppCompatActivity
         final Context currentContext = this.currentContext;
         MainActivity.counter++;
         MainActivity.rightCounter++;
+        //TODO: Get happy sound to play
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
+        MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
+        correct.start();
         builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
                 .setTitle("Ka Pai!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
                                 //TODO: Get happy sound to play
-                                MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
-                                correct.start();
+
+
 //                                Intent intent = new Intent(ques, MainActivity.class);
 //                                startActivity(intent);
 
