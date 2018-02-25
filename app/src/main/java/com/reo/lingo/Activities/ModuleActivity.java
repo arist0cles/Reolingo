@@ -1,8 +1,6 @@
 package com.reo.lingo.Activities;
-import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -16,17 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
-import com.reo.lingo.Fragments.TranslateQuestionFragment;
 import com.reo.lingo.Models.FourTileQuestion;
 import com.reo.lingo.Models.Question;
-import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 
 import java.util.List;
@@ -42,6 +34,10 @@ public class ModuleActivity extends AppCompatActivity
 
     private List<Question> questions;
 
+    private android.support.v4.app.Fragment currentQuestionFragment;
+    private Question currentQuestion;
+    private Context currentContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +51,12 @@ public class ModuleActivity extends AppCompatActivity
             questions = getIntent().getParcelableArrayListExtra("questions");
             //TODO: Parse questions and give startQuestions the first one
             if(questions != null){
+                currentQuestion = questions.get(0);
                 start(questions.get(0));
             }
 
             setProgress();
+            setupCheckButton();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -71,18 +69,102 @@ public class ModuleActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void setupCheckButton(){
+        check = (Button) this.findViewById(R.id.check);
+        check.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                currentContext = v.getContext();
+                if(isCorrect()){
+                    showCorrect();
+                } else {
+                    showIncorrect();
+                }
+            }
+        });
+
+    }
+
+    public boolean isCorrect(){
+        //TODO: write this shit
+        //Get the selected word
+        //check if the selected word is the same as the question correct maori
+        FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
+        String selected = f.getSelected();
+        String correctAnswer = currentQuestion.getCorrectMaori();
+        if(correctAnswer.equals(selected)){
+            return true;
+        }
+        return false;
+    }
+
+    public void showIncorrect() {
+        final Context currentContext = this.currentContext;
+        MainActivity.counter++;
+        MainActivity.wrongCounter++;
+//        TextView t = (TextView) highlighted.getChildAt(2);
+//        String correctWord = "Nah";
+//        if(a1.getCorrect((String)t.getText())){
+//            correctWord = a1.getAnswer();
+//        }
+//        if(a2.getCorrect((String)t.getText())){
+//            correctWord = a2.getAnswer();
+//        }
+//        if(a3.getCorrect((String)t.getText())){
+//            correctWord = a3.getAnswer();
+//        }
+//        if(a4.getCorrect((String)t.getText())){
+//            correctWord = a4.getAnswer();
+//        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
+        //TODO: Attach the correct word
+        builder.setMessage("That was incorrect. The correct answer was ")
+                .setTitle("Aue")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface i, int j) {
+                                //TODO: Get happy sound to play
+//                                Intent intent = new Intent(ques, MainActivity.class);
+//                                startActivity(intent);
+                            }
+                        }
+                );
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    public void showCorrect(){
+        final Context currentContext = this.currentContext;
+        MainActivity.counter++;
+        MainActivity.rightCounter++;
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
+        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+                .setTitle("Ka Pai!")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface i, int j) {
+                                //TODO: Get 'You fucked up' sound to play
+//                                Intent intent = new Intent(ques, MainActivity.class);
+//                                startActivity(intent);
+
+                            }
+                        }
+                );
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
     public void start(Question q){
         // Create new fragment and transaction
-        android.support.v4.app.Fragment newFragment = q.getFragment();
+        currentQuestionFragment = q.getFragment();
         Bundle bundle = q.getBundle();
 
         //TODO: Attach answertiles to bundle
-        newFragment.setArguments(bundle);
+        currentQuestionFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        transaction.replace(R.id.fragment_placeholder, newFragment);
+        transaction.replace(R.id.fragment_placeholder, currentQuestionFragment);
         transaction.addToBackStack(null);
 
         // Commit the transaction

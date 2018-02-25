@@ -60,6 +60,12 @@ public class FourTileQuestionFragment extends Fragment {
     private RadioButton radioButton3;
     private RadioButton radioButton4;
 
+    public String selected;
+
+    public String getSelected(){
+        return selected;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,17 +76,18 @@ public class FourTileQuestionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         savedInstanceState = getArguments();
-        Objects.requireNonNull(savedInstanceState);
+        //Objects.requireNonNull(savedInstanceState);
 
         setQuestionText(savedInstanceState.getString("questionTitle"));
         //This needs four answertiles
         //Do I even need answer tile as an abstraction?
-        AnswerTile a1 = savedInstanceState.getParcelable("tile1");
-        AnswerTile a2 = savedInstanceState.getParcelable("tile2");
-        AnswerTile a3 = savedInstanceState.getParcelable("tile3");
-        AnswerTile a4 = savedInstanceState.getParcelable("tile4");
+        a1 = savedInstanceState.getParcelable("tile1");
+        a2 = savedInstanceState.getParcelable("tile2");
+        a3 = savedInstanceState.getParcelable("tile3");
+        a4 = savedInstanceState.getParcelable("tile4");
 
         setupTiles(a1, a2, a3, a4);
+        setupButtons();
 
 
 
@@ -294,58 +301,5 @@ public class FourTileQuestionFragment extends Fragment {
         image2.setBackground(this.getResources().getDrawable(a2.getImage()));
         image3.setBackground(this.getResources().getDrawable(a3.getImage()));
         image4.setBackground(this.getResources().getDrawable(a4.getImage()));
-    }
-
-    public void showIncorrect(String name) {
-        final Context currentContext = this.currentContext;
-        MainActivity.counter++;
-        MainActivity.wrongCounter++;
-        TextView t = (TextView) highlighted.getChildAt(2);
-        String correctWord = "Nah";
-        if(a1.getCorrect((String)t.getText())){
-            correctWord = a1.getAnswer();
-        }
-        if(a2.getCorrect((String)t.getText())){
-            correctWord = a2.getAnswer();
-        }
-        if(a3.getCorrect((String)t.getText())){
-            correctWord = a3.getAnswer();
-        }
-        if(a4.getCorrect((String)t.getText())){
-            correctWord = a4.getAnswer();
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
-        builder.setMessage("That was incorrect. The correct answer was " + correctWord)
-                .setTitle("Aue")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface i, int j) {
-//                                Intent intent = new Intent(ques, MainActivity.class);
-//                                startActivity(intent);
-                            }
-                        }
-                );
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
-
-    public void showCorrect(String name){
-        final Context currentContext = this.currentContext;
-        MainActivity.counter++;
-        MainActivity.rightCounter++;
-        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
-        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
-                .setTitle("Ka Pai!")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface i, int j) {
-//                                Intent intent = new Intent(ques, MainActivity.class);
-//                                startActivity(intent);
-
-                            }
-                        }
-                );
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
     }
 }

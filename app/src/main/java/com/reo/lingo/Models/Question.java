@@ -19,6 +19,14 @@ public abstract class Question implements Parcelable {
         return questionText;
     }
 
+    public String getCorrectEnglish(){
+        return correctEnglish;
+    }
+
+    public String getCorrectMaori(){
+        return correctMaori;
+    }
+
     public abstract Bundle getBundle();
 
     public abstract android.support.v4.app.Fragment getFragment();
