@@ -81,7 +81,6 @@ public class ModuleActivity extends AppCompatActivity
                 }
             }
         });
-
     }
 
     public boolean isCorrect(){
@@ -90,7 +89,8 @@ public class ModuleActivity extends AppCompatActivity
         //check if the selected word is the same as the question correct maori
         FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
         String selected = f.getSelected();
-        String correctAnswer = currentQuestion.getCorrectMaori();
+        //String selected =
+        String correctAnswer = currentQuestion.getCorrectEnglish();
         if(correctAnswer.equals(selected)){
             return true;
         }

@@ -60,11 +60,7 @@ public class FourTileQuestionFragment extends Fragment {
     private RadioButton radioButton3;
     private RadioButton radioButton4;
 
-    public String selected;
-
-    public String getSelected(){
-        return selected;
-    }
+    private String selected;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +75,7 @@ public class FourTileQuestionFragment extends Fragment {
         //Objects.requireNonNull(savedInstanceState);
 
         setQuestionText(savedInstanceState.getString("questionTitle"));
+        savedInstanceState.getString("correctMaori");
         //This needs four answertiles
         //Do I even need answer tile as an abstraction?
         a1 = savedInstanceState.getParcelable("tile1");
@@ -88,8 +85,6 @@ public class FourTileQuestionFragment extends Fragment {
 
         setupTiles(a1, a2, a3, a4);
         setupButtons();
-
-
 
 //        Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
@@ -177,6 +172,7 @@ public class FourTileQuestionFragment extends Fragment {
         //Tile Listeners
         tile1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                selected = a1.getAnswer();
                 unhighlight();
                 highlight(tile1);
                 radioButton1.setChecked(true);
@@ -187,6 +183,7 @@ public class FourTileQuestionFragment extends Fragment {
 
         tile2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                selected = a2.getAnswer();
                 unhighlight();
                 highlight(tile2);
                 radioButton2.setChecked(true);
@@ -197,6 +194,7 @@ public class FourTileQuestionFragment extends Fragment {
 
         tile3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                selected = a3.getAnswer();
                 unhighlight();
                 highlight(tile3);
                 radioButton3.setChecked(true);
@@ -207,6 +205,7 @@ public class FourTileQuestionFragment extends Fragment {
 
         tile4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                selected = a4.getAnswer();
                 unhighlight();
                 highlight(tile4);
                 radioButton4.setChecked(true);
@@ -301,5 +300,9 @@ public class FourTileQuestionFragment extends Fragment {
         image2.setBackground(this.getResources().getDrawable(a2.getImage()));
         image3.setBackground(this.getResources().getDrawable(a3.getImage()));
         image4.setBackground(this.getResources().getDrawable(a4.getImage()));
+    }
+
+    public String getSelected(){
+        return selected;
     }
 }
