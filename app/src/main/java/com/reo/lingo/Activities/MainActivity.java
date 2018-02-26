@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         for (jsonobj.Question q : m.questions){
             switch(q.type){
                 case "FOUR_TILE_QUESTION":
-                    questions.add(new FourTileQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options));
+                    questions.add(new FourTileQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
             }
         }
         return questions;

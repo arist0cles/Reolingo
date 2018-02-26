@@ -1,10 +1,8 @@
 package com.reo.lingo.Models;
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentTransaction;
 
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
 import com.reo.lingo.Parceable.AnswerTile;
@@ -19,15 +17,16 @@ import java.util.List;
 
 public class FourTileQuestion extends Question {
 
-    private List<AnswerTile> tiles = new ArrayList<>();;
+    private List<AnswerTile> tiles = new ArrayList<>();
 
-    public FourTileQuestion(String correctEnglish, String correctMaori,  String questionText, List<String> options){
+    public FourTileQuestion(String correctEnglish, String correctMaori,  String questionText, List<String> options, boolean isMilestone){
         this.correctEnglish = correctEnglish;
         this.correctMaori = correctMaori;
         this.questionText = questionText + "\"" + correctEnglish + "\"?";
+        this.isMilestone = isMilestone;
 
         for(String s : options){
-            tiles.add(makeTiles(s));
+            tiles.add(makeTile(s));
         }
     }
 
@@ -37,7 +36,7 @@ public class FourTileQuestion extends Question {
 
     public Bundle getBundle(){
         Bundle thingsToPass = new Bundle();
-        //TODO: This is too coupled, clean it up
+
         thingsToPass.putString("questionTitle", questionText);
         thingsToPass.putString("correctEnglish", correctEnglish);
         thingsToPass.putString("correctMaori", correctMaori);
@@ -45,11 +44,12 @@ public class FourTileQuestion extends Question {
         thingsToPass.putParcelable("tile2", getTile(1));
         thingsToPass.putParcelable("tile3", getTile(2));
         thingsToPass.putParcelable("tile4", getTile(3));
+        thingsToPass.putBoolean("isMilestone", isMilestone);
 
         return thingsToPass;
     }
 
-    public AnswerTile makeTiles(String opt)
+    public AnswerTile makeTile(String opt)
     {
         switch (opt)
         {
@@ -81,6 +81,11 @@ public class FourTileQuestion extends Question {
         out.writeString(correctEnglish);
         out.writeString(correctMaori);
         out.writeList(tiles);
+        if(isMilestone){
+            out.writeInt(1);
+        } else {
+            out.writeInt(0);
+        }
     }
 
     public static final Parcelable.Creator<FourTileQuestion> CREATOR
@@ -99,5 +104,6 @@ public class FourTileQuestion extends Question {
         this.correctEnglish = in.readString();
         this.correctEnglish = in.readString();
         in.readList(this.tiles, Question.class.getClassLoader());
+        this.isMilestone = (in.readInt() == 1) ? true : false;
     }
 }

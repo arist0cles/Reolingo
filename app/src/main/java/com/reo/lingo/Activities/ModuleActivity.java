@@ -90,6 +90,7 @@ public class ModuleActivity extends AppCompatActivity
     }
 
     public boolean isCorrect(){
+        //TODO: Ah this is super coupled to FourTileQuestion and needs to be rewritten with new Question types
         FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
         String selected = f.getSelected();
 
@@ -102,7 +103,11 @@ public class ModuleActivity extends AppCompatActivity
     }
 
     public boolean isMilestone(){
-        return true;
+        if(currentQuestion.isMilestone()){
+            return true;
+        }
+
+        return false;
     }
 
     public void showIncorrect() {

@@ -31,6 +31,8 @@ import java.util.Objects;
 public class FourTileQuestionFragment extends Fragment {
     private Context currentContext;
 
+    private boolean isMilestone;
+
     private RelativeLayout tile1;
     private RelativeLayout tile2;
     private RelativeLayout tile3;
@@ -78,6 +80,8 @@ public class FourTileQuestionFragment extends Fragment {
         a2 = savedInstanceState.getParcelable("tile2");
         a3 = savedInstanceState.getParcelable("tile3");
         a4 = savedInstanceState.getParcelable("tile4");
+
+        this.isMilestone = savedInstanceState.getBoolean("isMilestone");
 
         setupTiles(a1, a2, a3, a4);
         setupButtons();

@@ -14,6 +14,7 @@ public abstract class Question implements Parcelable {
     protected String correctEnglish;
     protected String correctMaori;
     protected String questionText;
+    protected boolean isMilestone;
 
     public String getQuestionText(){
         return questionText;
@@ -25,6 +26,10 @@ public abstract class Question implements Parcelable {
 
     public String getCorrectMaori(){
         return correctMaori;
+    }
+
+    public boolean isMilestone(){
+        return this.isMilestone;
     }
 
     public abstract Bundle getBundle();
