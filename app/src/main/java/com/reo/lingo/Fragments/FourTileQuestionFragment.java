@@ -43,8 +43,6 @@ public class FourTileQuestionFragment extends Fragment {
     private AnswerTile a3;
     private AnswerTile a4;
 
-    private boolean rightAnswer;
-
     private ImageView image1;
     private ImageView image2;
     private ImageView image3;
@@ -72,12 +70,10 @@ public class FourTileQuestionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         savedInstanceState = getArguments();
-        //Objects.requireNonNull(savedInstanceState);
 
         setQuestionText(savedInstanceState.getString("questionTitle"));
         savedInstanceState.getString("correctMaori");
-        //This needs four answertiles
-        //Do I even need answer tile as an abstraction?
+
         a1 = savedInstanceState.getParcelable("tile1");
         a2 = savedInstanceState.getParcelable("tile2");
         a3 = savedInstanceState.getParcelable("tile3");
@@ -85,17 +81,6 @@ public class FourTileQuestionFragment extends Fragment {
 
         setupTiles(a1, a2, a3, a4);
         setupButtons();
-
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//
-//        }
-//        a1 = getIntent().getParcelableExtra("tile1");
-//        a2 = getIntent().getParcelableExtra("tile2");
-//        a3 = getIntent().getParcelableExtra("tile3");
-//        a4 = getIntent().getParcelableExtra("tile4");
-
-        //String title = (String) extras.get("questionTitle");
 
         currentContext = view.getContext();
         setupButtons();
@@ -109,50 +94,6 @@ public class FourTileQuestionFragment extends Fragment {
 
     public void setupButtons() {
         final Context currentContext = this.currentContext;
-        //TODO: Clean this up so check is handled in Module activity
-//        check = (Button) this.findViewById(R.id.check);
-//        check.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                TextView t = (TextView) highlighted.getChildAt(2);
-//                if(highlighted.getId() == R.id.tile1){
-//                    if (a1.getCorrect((String)t.getText())) {
-//                        rightAnswer = true;
-//                        MediaPlayer mp = MediaPlayer.create(ModuleActivity.this, R.raw.beep);
-//                        mp.start();
-//                    } else {
-//                        rightAnswer = false;
-//                    }
-//                }
-//                if(highlighted.getId() == R.id.tile2){
-//                    if (a2.getCorrect((String)t.getText())) {
-//                        rightAnswer = true;
-//                        MediaPlayer mp = MediaPlayer.create(ModuleActivity.this, R.raw.beep);
-//                        mp.start();
-//                    } else {
-//                        rightAnswer = false;
-//                    }
-//                }
-//                if(highlighted.getId() == R.id.tile3){
-//                    if (a3.getCorrect((String)t.getText())) {
-//                        rightAnswer = true;
-//                        MediaPlayer mp = MediaPlayer.create(ModuleActivity.this, R.raw.beep);
-//                        mp.start();
-//                    } else {
-//                        rightAnswer = false;
-//                    }
-//                }
-//                if(highlighted.getId() == R.id.tile4){
-//                    if (a4.getCorrect((String)t.getText())) {
-//                        rightAnswer = true;
-//                        MediaPlayer mp = MediaPlayer.create(ModuleActivity.this, R.raw.beep);
-//                        mp.start();
-//                    } else {
-//                        rightAnswer = false;
-//                    }
-//                }
-//                buttonChosen(a1.getAnswer());
-//            }
-//        });
 
         image1 = (ImageView) getView().findViewById(R.id.image1);
         image2 = (ImageView) getView().findViewById(R.id.image2);

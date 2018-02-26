@@ -39,8 +39,8 @@
   },
     {
       "type": "FOUR_TILE_QUESTION",
-      "correctEnglish": "the cat",
-      "correctMaori": "Ngeru",
+      "correctEnglish": "the dog",
+      "correctMaori": "Kuri",
       "milestone": true,
       "sentence": "Which of these is ",
       "options": [

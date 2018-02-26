@@ -213,48 +213,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void newQuestion() {
-        switch (counter) {
-            case 0: {
-                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
                 askQuestion();
-                break;
-            }
-            case 1: {
-                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-                askQuestion();
-                break;
-            }
-            case 2: {
-                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-                askQuestion();
-                break;
-            }
-            case 3: {
-                FourTileQuestion q = (FourTileQuestion) questions.get(counter);
-                askQuestion();
-                break;
-            }
-            case 4: {// last case. Review session
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
-                int divide = (int) math;
-                builder.setMessage("Your overall score was "+ divide +"%")
-                        .setTitle("Ka Mau Te WEHI!")
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface i, int j) {
-                                        counter = 0;
-                                        wrongCounter = 0;
-                                        rightCounter = 0;
-                                        Intent intent = new Intent(main, TranslateQuestion.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                        );
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+//            case 4: {// last case. Review session
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+//                int divide = (int) math;
+//                builder.setMessage("Your overall score was "+ divide +"%")
+//                        .setTitle("Ka Mau Te WEHI!")
+//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface i, int j) {
+//                                        counter = 0;
+//                                        wrongCounter = 0;
+//                                        rightCounter = 0;
+//                                        Intent intent = new Intent(main, TranslateQuestion.class);
+//                                        startActivity(intent);
+//                                    }
+//                                }
+//                        );
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//            }
 
-        }
     }
 
     public void askQuestion(){
@@ -263,11 +242,6 @@ public class MainActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("questions", q);
         intent.putExtras(bundle);
-//        intent.putExtra("questionTitle", q.getQuestionText());
-//        intent.putExtra("tile1", q.getTile(0));
-//        intent.putExtra("tile2", q.getTile(1));
-//        intent.putExtra("tile3", q.getTile(2));
-//        intent.putExtra("tile4", q.getTile(3));
         startActivity(intent);
     }
 }

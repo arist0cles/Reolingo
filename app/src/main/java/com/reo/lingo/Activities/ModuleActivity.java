@@ -1,6 +1,7 @@
 package com.reo.lingo.Activities;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,13 +52,12 @@ public class ModuleActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             questions = getIntent().getParcelableArrayListExtra("questions");
-            //TODO: Parse questions and give startQuestions the first one
+
             if(questions != null){
                 currentQuestion = questions.get(0);
                 start(questions.get(0));
             }
 
-            setProgress();
             setupCheckButton();
         }
 
@@ -77,7 +77,11 @@ public class ModuleActivity extends AppCompatActivity
             public void onClick(View v) {
                 currentContext = v.getContext();
                 if(isCorrect()){
-                    showCorrect();
+                    if(isMilestone()){
+                        showCorrectMilestone();
+                    }else {
+                        showCorrect();
+                    }
                 } else {
                     showIncorrect();
                 }
@@ -86,13 +90,9 @@ public class ModuleActivity extends AppCompatActivity
     }
 
     public boolean isCorrect(){
-        //TODO: write this shit
-        //Get the selected word
-        //check if the selected word is the same as the question correct maori
-
         FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
         String selected = f.getSelected();
-        //String selected =
+
         String correctAnswer = currentQuestion.getCorrectEnglish();
         if(correctAnswer.equals(selected)){
             return true;
@@ -101,37 +101,27 @@ public class ModuleActivity extends AppCompatActivity
         return false;
     }
 
+    public boolean isMilestone(){
+        return true;
+    }
+
     public void showIncorrect() {
         final Context currentContext = this.currentContext;
         MainActivity.counter++;
         MainActivity.wrongCounter++;
-//        TextView t = (TextView) highlighted.getChildAt(2);
-//        String correctWord = "Nah";
-//        if(a1.getCorrect((String)t.getText())){
-//            correctWord = a1.getAnswer();
-//        }
-//        if(a2.getCorrect((String)t.getText())){
-//            correctWord = a2.getAnswer();
-//        }
-//        if(a3.getCorrect((String)t.getText())){
-//            correctWord = a3.getAnswer();
-//        }
-//        if(a4.getCorrect((String)t.getText())){
-//            correctWord = a4.getAnswer();
-//        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
-        //TODO: Get 'You fucked up' sound to play
 
         MediaPlayer incorrect = MediaPlayer.create(ModuleActivity.this, R.raw.incorrect);
         incorrect.start();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
         builder.setMessage("That was incorrect. The correct answer was ")
                 .setTitle("Aue")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
+                                setProgressBar(Color.RED);
 
-
-//                                Intent intent = new Intent(ques, MainActivity.class);
-//                                startActivity(intent);
+                                currentQuestion = questions.get(MainActivity.counter);
+                                start(questions.get(MainActivity.counter));
                             }
                         }
                 );
@@ -140,36 +130,51 @@ public class ModuleActivity extends AppCompatActivity
 
     }
 
-    public void showCorrect(){
+    public void showCorrectMilestone(){
         final Context currentContext = this.currentContext;
         MainActivity.counter++;
         MainActivity.rightCounter++;
-        //TODO: Get happy sound to play
-        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
+
         MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
         correct.start();
-        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
-                .setTitle("Ka Pai!")
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
+        //Pop up figure here
+        builder.setMessage("Great job, you're halfway there!!!")
+                .setTitle("Ka Mau Te WEHI!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-
-                                //TODO: Get happy sound to play
-
-
-
-                                //TODO: Base this on the counter
+                                setProgressBar(Color.GREEN);
                                 currentQuestion = questions.get(MainActivity.counter);
                                 start(questions.get(MainActivity.counter));
-
-//                                Intent intent = new Intent(ques, MainActivity.class);
-//                                startActivity(intent);
-
                             }
                         }
                 );
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
 
+    public void showCorrect(){
+        final Context currentContext = this.currentContext;
+        MainActivity.counter++;
+        MainActivity.rightCounter++;
+
+        MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
+        correct.start();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
+        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+                .setTitle("Ka Pai!")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface i, int j) {
+                                setProgressBar(Color.GREEN);
+                                currentQuestion = questions.get(MainActivity.counter);
+                                start(questions.get(MainActivity.counter));
+                            }
+                        }
+                );
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void start(Question q){
@@ -190,8 +195,11 @@ public class ModuleActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void setProgress(){
+    public void setProgressBar(int colour){
         progress = (ProgressBar) this.findViewById(R.id.progress);
+
+        progress.getProgressDrawable().setColorFilter(
+                colour, android.graphics.PorterDuff.Mode.SRC_IN);
         if (android.os.Build.VERSION.SDK_INT >= 24) {
             progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT, true);
         } else {
@@ -199,13 +207,6 @@ public class ModuleActivity extends AppCompatActivity
         }
     }
 
-  //  public void buttonChosen(String name) {
-//        if (rightAnswer) {
-//            showCorrect(name);
-//        } else {
-//            showIncorrect(name);
-//        }
-   // }
         @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -37,7 +37,7 @@ public class FourTileQuestion extends Question {
 
     public Bundle getBundle(){
         Bundle thingsToPass = new Bundle();
-        //TODO: Create the answer tiles in here
+        //TODO: This is too coupled, clean it up
         thingsToPass.putString("questionTitle", questionText);
         thingsToPass.putString("correctEnglish", correctEnglish);
         thingsToPass.putString("correctMaori", correctMaori);
