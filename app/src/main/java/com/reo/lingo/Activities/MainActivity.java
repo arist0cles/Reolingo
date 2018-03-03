@@ -20,7 +20,7 @@ import android.widget.Button;
 
 import com.reo.lingo.Models.FourTileQuestion;
 import com.reo.lingo.Models.Question;
-import com.reo.lingo.Parceable.AnswerTile;
+import com.reo.lingo.Models.TranslateQuestion;
 import com.reo.lingo.R;
 import com.reo.lingo.ReoApplication;
 
@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity
             switch(q.type){
                 case "FOUR_TILE_QUESTION":
                     questions.add(new FourTileQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
+                    break;
+                case "TRANSLATE_QUESTION":
+                    questions.add(new TranslateQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
             }
         }
         return questions;

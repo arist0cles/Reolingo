@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public abstract class Question implements Parcelable {
     protected String correctEnglish;
     protected String correctMaori;
     protected String questionText;
+    protected List<String> options = new ArrayList<>();
     protected boolean isMilestone;
 
     public String getQuestionText(){

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
+import com.reo.lingo.Fragments.TranslateQuestionFragment;
 import com.reo.lingo.Models.FourTileQuestion;
 import com.reo.lingo.Models.Question;
 import com.reo.lingo.R;
@@ -91,8 +92,18 @@ public class ModuleActivity extends AppCompatActivity
 
     public boolean isCorrect(){
         //TODO: Ah this is super coupled to FourTileQuestion and needs to be rewritten with new Question types
-        FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
-        String selected = f.getSelected();
+        //Fuck you Zach, I'm going to use InstanceOf
+        String selected;
+        if(currentQuestionFragment.getClass() == FourTileQuestionFragment.class){
+            FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
+            selected = f.getSelected();
+        } else if (currentQuestionFragment.getClass() == TranslateQuestionFragment.class){
+            TranslateQuestionFragment f = (TranslateQuestionFragment) currentQuestionFragment;
+            selected = f.getSelected();
+        } else {
+            return false;
+        }
+
 
         String correctAnswer = currentQuestion.getCorrectEnglish();
         if(correctAnswer.equals(selected)){
@@ -187,7 +198,6 @@ public class ModuleActivity extends AppCompatActivity
         currentQuestionFragment = q.getFragment();
         Bundle bundle = q.getBundle();
 
-        //TODO: Attach answertiles to bundle
         currentQuestionFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

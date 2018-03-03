@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.reo.lingo.R;
 
-public class TranslateQuestion extends AppCompatActivity
+public class TranslateActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override

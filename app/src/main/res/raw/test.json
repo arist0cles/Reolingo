@@ -1,6 +1,15 @@
 {
   "level" : 1,
   "questions" : [ {
+    "type" : "TRANSLATE_QUESTION",
+    "correctEnglish" : "Boy",
+    "correctMaori" : "Tama",
+    "milestone" : false,
+    "sentence" : "Translate this sentence",
+    "options" : [
+      "Boy", "Girl", "Man", "Woman"
+    ]
+  },{
     "type" : "FOUR_TILE_QUESTION",
     "correctEnglish" : "the girl",
     "correctMaori" : "Kotiro",
