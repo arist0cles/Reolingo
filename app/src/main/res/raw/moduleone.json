@@ -1,13 +1,13 @@
 {
   "level" : 1,
   "questions" : [ {
-    "type" : "TRANSLATE_QUESTION",
+    "type" : "ENGLISH_MAORI_TRANSLATE_QUESTION",
     "correctEnglish" : "Boy",
     "correctMaori" : "Tama",
     "milestone" : false,
-    "sentence" : "Translate this sentence",
+    "sentence" : "Translate this word",
     "options" : [
-      "Boy", "Girl", "Man", "Woman"
+      "Tama", "Kuri", "Kotiro", "Ngeru"
     ]
   },{
     "type" : "FOUR_TILE_QUESTION",
@@ -28,13 +28,13 @@
       "Kotiro", "Kuri", "Tama", "Ngeru"
     ]
   },{
-    "type" : "FOUR_TILE_QUESTION",
-    "correctEnglish" : "the boy",
-    "correctMaori" : "Tama",
+    "type" : "MAORI_ENGLISH_TRANSLATE_QUESTION",
+    "correctEnglish" : "Dog",
+    "correctMaori" : "Kuri",
     "milestone" : false,
-    "sentence" : "Which of these is ",
+    "sentence" : "Translate this word",
     "options" : [
-      "Kotiro", "Kuri", "Tama", "Ngeru"
+      "Boy", "Dog", "Man", "Woman"
     ]
   },{
     "type" : "FOUR_TILE_QUESTION",

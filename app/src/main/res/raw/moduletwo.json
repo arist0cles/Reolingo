@@ -1,0 +1,14 @@
+{
+  "level" : 1,
+  "questions" : [ {
+    "type" : "TRANSLATE_QUESTION",
+    "correctEnglish" : "ModuleTWO!!!",
+    "correctMaori" : "Tama",
+    "milestone" : false,
+    "sentence" : "Translate this word",
+    "options" : [
+      "Boy", "Girl", "Man", "Woman"
+    ]
+  }
+  ]
+}

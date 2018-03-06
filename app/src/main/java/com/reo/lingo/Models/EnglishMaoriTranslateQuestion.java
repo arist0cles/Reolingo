@@ -3,10 +3,8 @@ package com.reo.lingo.Models;
 import android.os.Bundle;
 import android.os.Parcel;
 
-import com.reo.lingo.Fragments.FourTileQuestionFragment;
-import com.reo.lingo.Fragments.TranslateQuestionFragment;
-import com.reo.lingo.Parceable.AnswerTile;
-import com.reo.lingo.R;
+import com.reo.lingo.Fragments.EnglishMaoriTranslateQuestionFragment;
+import com.reo.lingo.Fragments.MaoriEnglishTranslateQuestionFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,9 @@ import java.util.List;
  * Created by patrick on 20/02/18.
  */
 
-public class TranslateQuestion extends Question {
+public class EnglishMaoriTranslateQuestion extends Question {
 
-    public TranslateQuestion(String correctEnglish, String correctMaori, String questionText, List<String> options, boolean isMilestone){
+    public EnglishMaoriTranslateQuestion(String correctEnglish, String correctMaori, String questionText, List<String> options, boolean isMilestone){
         this.correctEnglish = correctEnglish;
         this.correctMaori = correctMaori;
         this.questionText = questionText;
@@ -26,7 +24,7 @@ public class TranslateQuestion extends Question {
     }
 
     public android.support.v4.app.Fragment getFragment(){
-        return new TranslateQuestionFragment();
+        return new EnglishMaoriTranslateQuestionFragment();
     }
 
     public Bundle getBundle(){
@@ -60,18 +58,18 @@ public class TranslateQuestion extends Question {
         }
     }
 
-    public static final Creator<TranslateQuestion> CREATOR
-            = new Creator<TranslateQuestion>() {
-        public TranslateQuestion createFromParcel(Parcel in) {
-            return new TranslateQuestion(in);
+    public static final Creator<EnglishMaoriTranslateQuestion> CREATOR
+            = new Creator<EnglishMaoriTranslateQuestion>() {
+        public EnglishMaoriTranslateQuestion createFromParcel(Parcel in) {
+            return new EnglishMaoriTranslateQuestion(in);
         }
 
-        public TranslateQuestion[] newArray(int size) {
-            return new TranslateQuestion[size];
+        public EnglishMaoriTranslateQuestion[] newArray(int size) {
+            return new EnglishMaoriTranslateQuestion[size];
         }
     };
 
-    private TranslateQuestion(Parcel in) {
+    private EnglishMaoriTranslateQuestion(Parcel in) {
         this.questionText = in.readString();
         this.correctEnglish = in.readString();
         this.correctMaori = in.readString();

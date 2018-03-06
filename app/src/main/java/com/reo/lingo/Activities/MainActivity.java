@@ -18,9 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.reo.lingo.Models.EnglishMaoriTranslateQuestion;
 import com.reo.lingo.Models.FourTileQuestion;
 import com.reo.lingo.Models.Question;
-import com.reo.lingo.Models.TranslateQuestion;
+import com.reo.lingo.Models.MaoriEnglishTranslateQuestion;
 import com.reo.lingo.R;
 import com.reo.lingo.ReoApplication;
 
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity
         */
         mApplication = new ReoApplication(this);
 
-        Module moduleOne = mApplication.loadModuleFromFile(R.raw.test);
+        Module moduleOne = mApplication.loadModuleFromFile(R.raw.moduleone);
+        Module moduleTwo = mApplication.loadModuleFromFile(R.raw.moduletwo);
 
         questions = (ArrayList<Question>) getQuestions(moduleOne);
 
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
         if (previouslyStarted) {
-            newQuestion();
+            askQuestion();
         }
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
@@ -99,8 +101,12 @@ public class MainActivity extends AppCompatActivity
                 case "FOUR_TILE_QUESTION":
                     questions.add(new FourTileQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
                     break;
-                case "TRANSLATE_QUESTION":
-                    questions.add(new TranslateQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
+                case "MAORI_ENGLISH_TRANSLATE_QUESTION":
+                    questions.add(new MaoriEnglishTranslateQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
+                    break;
+                case "ENGLISH_MAORI_TRANSLATE_QUESTION":
+                    questions.add(new EnglishMaoriTranslateQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
+                    break;
             }
         }
         return questions;
@@ -150,7 +156,7 @@ public class MainActivity extends AppCompatActivity
                 .setTitle("Chur")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
-                                newQuestion();
+                                askQuestion();
                             }
                         }
                 );
@@ -213,30 +219,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void newQuestion() {
-                askQuestion();
-//            case 4: {// last case. Review session
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
-//                int divide = (int) math;
-//                builder.setMessage("Your overall score was "+ divide +"%")
-//                        .setTitle("Ka Mau Te WEHI!")
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface i, int j) {
-//                                        counter = 0;
-//                                        wrongCounter = 0;
-//                                        rightCounter = 0;
-//                                        Intent intent = new Intent(main, TranslateQuestion.class);
-//                                        startActivity(intent);
-//                                    }
-//                                }
-//                        );
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//            }
-
     }
 
     public void askQuestion(){

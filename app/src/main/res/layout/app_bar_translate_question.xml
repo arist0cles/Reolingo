@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/translate_question_fragment_layout" />
+    <include layout="@layout/maori_english_translate_question_fragment_layout" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

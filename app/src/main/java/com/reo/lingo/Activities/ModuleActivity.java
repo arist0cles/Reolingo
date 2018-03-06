@@ -19,13 +19,14 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.reo.lingo.Fragments.EnglishMaoriTranslateQuestionFragment;
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
-import com.reo.lingo.Fragments.TranslateQuestionFragment;
-import com.reo.lingo.Models.FourTileQuestion;
+import com.reo.lingo.Fragments.MaoriEnglishTranslateQuestionFragment;
 import com.reo.lingo.Models.Question;
 import com.reo.lingo.R;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ModuleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,10 +42,13 @@ public class ModuleActivity extends AppCompatActivity
     private android.support.v4.app.Fragment currentQuestionFragment;
     private Question currentQuestion;
     private Context currentContext;
+    private long startMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startMillis = System.currentTimeMillis();
 
         setContentView(R.layout.question_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,21 +95,26 @@ public class ModuleActivity extends AppCompatActivity
     }
 
     public boolean isCorrect(){
-        //TODO: Ah this is super coupled to FourTileQuestion and needs to be rewritten with new Question types
+        //TODO: Ah this needs to be rewritten for new Question types
         //Fuck you Zach, I'm going to use InstanceOf
         String selected;
+        String correctAnswer;
         if(currentQuestionFragment.getClass() == FourTileQuestionFragment.class){
             FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
             selected = f.getSelected();
-        } else if (currentQuestionFragment.getClass() == TranslateQuestionFragment.class){
-            TranslateQuestionFragment f = (TranslateQuestionFragment) currentQuestionFragment;
+            correctAnswer = currentQuestion.getCorrectEnglish();
+        } else if (currentQuestionFragment.getClass() == MaoriEnglishTranslateQuestionFragment.class){
+            MaoriEnglishTranslateQuestionFragment f = (MaoriEnglishTranslateQuestionFragment) currentQuestionFragment;
             selected = f.getSelected();
+            correctAnswer = currentQuestion.getCorrectEnglish();
+        } else if (currentQuestionFragment.getClass() == EnglishMaoriTranslateQuestionFragment.class){
+            EnglishMaoriTranslateQuestionFragment f = (EnglishMaoriTranslateQuestionFragment) currentQuestionFragment;
+            selected = f.getSelected();
+            correctAnswer = currentQuestion.getCorrectMaori();
         } else {
             return false;
         }
 
-
-        String correctAnswer = currentQuestion.getCorrectEnglish();
         if(correctAnswer.equals(selected)){
             return true;
         }
@@ -143,7 +152,6 @@ public class ModuleActivity extends AppCompatActivity
                 );
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     public void showCorrectMilestone(){
@@ -168,6 +176,34 @@ public class ModuleActivity extends AppCompatActivity
                 );
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void showFinal(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ModuleActivity.this);
+                double math = (double) MainActivity.rightCounter/ (double) MainActivity.counter*100;
+                int divide = (int) math;
+                long millis = System.currentTimeMillis();
+                long timeTaken = (millis - startMillis);
+
+                builder.setMessage("Your overall score was "+ divide +"%, you took " +
+                        String.format("%02d min, %02d sec",
+                                TimeUnit.MILLISECONDS.toMinutes(timeTaken),
+                                TimeUnit.MILLISECONDS.toSeconds(timeTaken) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken))
+                        ))
+                        .setTitle("Ka Mau Te WEHI!")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface i, int j) {
+                                        MainActivity.counter = 0;
+                                        MainActivity.wrongCounter = 0;
+                                        MainActivity.rightCounter = 0;
+                                        setProgressBar(Color.BLACK);
+                                        start(questions.get(0));
+                                    }
+                                }
+                        );
+                AlertDialog dialog = builder.create();
+                dialog.show();
     }
 
     public void showCorrect(){
@@ -195,6 +231,11 @@ public class ModuleActivity extends AppCompatActivity
 
     public void start(Question q){
         // Create new fragment and transaction
+        if(MainActivity.counter == 10){
+            showFinal();
+            return;
+        }
+
         currentQuestionFragment = q.getFragment();
         Bundle bundle = q.getBundle();
 

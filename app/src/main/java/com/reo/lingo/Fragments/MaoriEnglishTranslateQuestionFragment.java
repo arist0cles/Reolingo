@@ -19,7 +19,7 @@ import com.reo.lingo.R;
 
 import java.util.List;
 
-public class TranslateQuestionFragment extends Fragment {
+public class MaoriEnglishTranslateQuestionFragment extends Fragment {
 
     private Context currentContext;
     private boolean isMilestone;
@@ -32,7 +32,7 @@ public class TranslateQuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.translate_question_fragment_layout, container, false);
+        return inflater.inflate(R.layout.maori_english_translate_question_fragment_layout, container, false);
     }
 
     @Override
