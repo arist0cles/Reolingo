@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -18,10 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
+import com.reo.lingo.Fragments.BlanksQuestionFragment;
 import com.reo.lingo.Fragments.EnglishMaoriTranslateQuestionFragment;
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
 import com.reo.lingo.Fragments.MaoriEnglishTranslateQuestionFragment;
+import com.reo.lingo.Fragments.ModuleFragment;
 import com.reo.lingo.Models.Question;
 import com.reo.lingo.R;
 
@@ -39,7 +43,7 @@ public class ModuleActivity extends AppCompatActivity
 
     private List<Question> questions;
 
-    private android.support.v4.app.Fragment currentQuestionFragment;
+    private android.support.v4.app.Fragment currentFragment;
     private Question currentQuestion;
     private Context currentContext;
     private long startMillis;
@@ -59,8 +63,8 @@ public class ModuleActivity extends AppCompatActivity
             questions = getIntent().getParcelableArrayListExtra("questions");
 
             if(questions != null){
-                currentQuestion = questions.get(0);
-                start(questions.get(0));
+                showModules();
+                //setupModuleButtons();
             }
 
             setupCheckButton();
@@ -74,6 +78,26 @@ public class ModuleActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void setupModuleButtons() {
+        RelativeLayout button1 = (RelativeLayout) currentFragment.getView().findViewById(R.id.module1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //questions = moduleOne;
+                currentQuestion = questions.get(0);
+                start(questions.get(0));
+            }
+        });
+
+        RelativeLayout button2 = (RelativeLayout) this.findViewById(R.id.module2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //questions = moduleOne;
+                currentQuestion = questions.get(0);
+                start(questions.get(0));
+            }
+        });
     }
 
     public void setupCheckButton(){
@@ -99,23 +123,28 @@ public class ModuleActivity extends AppCompatActivity
         //Fuck you Zach, I'm going to use InstanceOf
         String selected;
         String correctAnswer;
-        if(currentQuestionFragment.getClass() == FourTileQuestionFragment.class){
-            FourTileQuestionFragment f = (FourTileQuestionFragment) currentQuestionFragment;
+        if(currentFragment.getClass() == FourTileQuestionFragment.class){
+            FourTileQuestionFragment f = (FourTileQuestionFragment) currentFragment;
             selected = f.getSelected();
             correctAnswer = currentQuestion.getCorrectEnglish();
-        } else if (currentQuestionFragment.getClass() == MaoriEnglishTranslateQuestionFragment.class){
-            MaoriEnglishTranslateQuestionFragment f = (MaoriEnglishTranslateQuestionFragment) currentQuestionFragment;
+        } else if (currentFragment.getClass() == MaoriEnglishTranslateQuestionFragment.class){
+            MaoriEnglishTranslateQuestionFragment f = (MaoriEnglishTranslateQuestionFragment) currentFragment;
             selected = f.getSelected();
             correctAnswer = currentQuestion.getCorrectEnglish();
-        } else if (currentQuestionFragment.getClass() == EnglishMaoriTranslateQuestionFragment.class){
-            EnglishMaoriTranslateQuestionFragment f = (EnglishMaoriTranslateQuestionFragment) currentQuestionFragment;
+        } else if (currentFragment.getClass() == EnglishMaoriTranslateQuestionFragment.class){
+            EnglishMaoriTranslateQuestionFragment f = (EnglishMaoriTranslateQuestionFragment) currentFragment;
             selected = f.getSelected();
             correctAnswer = currentQuestion.getCorrectMaori();
-        } else {
+        } else if (currentFragment.getClass() == BlanksQuestionFragment.class){
+            BlanksQuestionFragment f = (BlanksQuestionFragment) currentFragment;
+            selected = f.getSelected();
+            correctAnswer = currentQuestion.getCorrectMaori();
+        }
+        else {
             return false;
         }
 
-        if(correctAnswer.equals(selected)){
+        if(correctAnswer.equalsIgnoreCase(selected)){
             return true;
         }
 
@@ -220,8 +249,9 @@ public class ModuleActivity extends AppCompatActivity
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
                                 setProgressBar(Color.GREEN);
-                                currentQuestion = questions.get(MainActivity.counter);
-                                start(questions.get(MainActivity.counter));
+                                Question nextQuestion = questions.get(MainActivity.counter);
+                                currentQuestion = nextQuestion;
+                                start(nextQuestion);
                             }
                         }
                 );
@@ -236,15 +266,36 @@ public class ModuleActivity extends AppCompatActivity
             return;
         }
 
-        currentQuestionFragment = q.getFragment();
+        currentFragment = q.getFragment();
         Bundle bundle = q.getBundle();
 
-        currentQuestionFragment.setArguments(bundle);
+        currentFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        transaction.replace(R.id.fragment_placeholder, currentQuestionFragment);
+        transaction.replace(R.id.fragment_placeholder, currentFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    public void showModules(){
+        // Create new fragment and transaction
+        Fragment f = new ModuleFragment();
+        ModuleFragment mf = (ModuleFragment) f;
+        mf.setParent(this);
+        Bundle bundle = new Bundle();
+
+        f.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        currentFragment = f;
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transaction.replace(R.id.fragment_placeholder, f);
         transaction.addToBackStack(null);
 
         // Commit the transaction

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:paddingBottom="10dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/module1"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@mipmap/white_boy"
+        android:layout_marginLeft="24dp">
+
+        <ImageView
+            android:id="@+id/image5"
+            android:layout_width="260dp"
+            android:layout_height="220dp" />
+
+        <TextView android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pākehā"
+            android:textColor="#FFF"
+            android:paddingTop="20dp"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+             />
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/module2"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@mipmap/black_boy"
+        android:layout_marginRight="24dp">
+
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="260dp"
+            android:layout_height="220dp" />
+
+        <TextView android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maori Master"
+            android:paddingTop="20dp"
+            android:layout_centerInParent="true"
+            android:textColor="#FFF"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

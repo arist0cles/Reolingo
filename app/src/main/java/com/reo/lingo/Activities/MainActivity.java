@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.reo.lingo.Models.BlanksQuestion;
 import com.reo.lingo.Models.EnglishMaoriTranslateQuestion;
 import com.reo.lingo.Models.FourTileQuestion;
 import com.reo.lingo.Models.Question;
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case "ENGLISH_MAORI_TRANSLATE_QUESTION":
                     questions.add(new EnglishMaoriTranslateQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
+                    break;
+                case "BLANKS_QUESTION":
+                    questions.add(new BlanksQuestion(q.correctEnglish, q.correctMaori, q.sentence, q.options, q.milestone));
                     break;
             }
         }

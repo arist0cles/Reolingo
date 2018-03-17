@@ -9,14 +9,19 @@
     "options" : [
       "Tama", "Kuri", "Kotiro", "Ngeru"
     ]
-  },{
-    "type" : "FOUR_TILE_QUESTION",
-    "correctEnglish" : "the girl",
-    "correctMaori" : "Kotiro",
-    "milestone" : false,
-    "sentence" : "Which of these is ",
-    "options" : [
-      "Kotiro", "Kuri", "Tama", "Ngeru"
+  },    {
+    "type": "BLANKS_QUESTION",
+    "correctEnglish": "the dog",
+    "correctMaori": "kuri",
+    "milestone": false,
+    "sentence": "The kuri went for a walk",
+    "options": [
+      "Kotiro",
+      "Kuri",
+      "Tama",
+      "Ngeru",
+      "Kuri",
+      "Tama"
     ]
   }, {
     "type" : "FOUR_TILE_QUESTION",
@@ -117,6 +122,19 @@
       "correctMaori": "Kuri",
       "milestone": false,
       "sentence": "Which of these is ",
+      "options": [
+        "Kotiro",
+        "Kuri",
+        "Tama",
+        "Ngeru"
+      ]
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "the dog",
+      "correctMaori": "kuri",
+      "milestone": false,
+      "sentence": "The kuri went for a walk",
       "options": [
         "Kotiro",
         "Kuri",
