@@ -12,17 +12,9 @@
         "Kuri",
         "Tama",
         "Ngeru"
-      ]
-    },
-    {
-    "type" : "TRANSLATE_QUESTION",
-    "correctEnglish" : "ModuleTWO!!!",
-    "correctMaori" : "Tama",
-    "milestone" : false,
-    "sentence" : "Translate this word",
-    "options" : [
-      "Boy", "Girl", "Man", "Woman"
-    ]
-  }
+      ],
+      "helperMaori": ["Kotiro", "Tama"],
+      "helperEnglish": [["Girl", "Woman"], ["Boy"]]
+    }
   ]
 }

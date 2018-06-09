@@ -63,7 +63,8 @@ public class ModuleActivity extends AppCompatActivity
             questions = getIntent().getParcelableArrayListExtra("questions");
 
             if(questions != null){
-                showModules();
+                currentQuestion = questions.get(0);
+                start(questions.get(0));
                 //setupModuleButtons();
             }
 

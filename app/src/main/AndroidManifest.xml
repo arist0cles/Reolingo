@@ -27,6 +27,12 @@
             android:name=".Activities.TranslateActivity"
             android:label="@string/title_activity_translate_question"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activities.TopicSelectActivity"
+            android:label="Select Topic"></activity>
+        <activity
+            android:name=".Activities.ModuleSelectActivity"
+            android:label="Select Module"></activity>
     </application>
 
 </manifest>

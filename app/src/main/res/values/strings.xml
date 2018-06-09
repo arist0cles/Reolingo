@@ -9,4 +9,8 @@
     <string name="pref_previously_started">False</string>
     <string name="lastQCorrect">True</string>
     <string name="title_activity_translate_question">TranslateQuestion</string>
+
+    <string name="mealtime">Mealtime</string>
+    <string name="getting_dressed">Getting Dressed</string>
+    <string name="sport">Sport</string>
 </resources>

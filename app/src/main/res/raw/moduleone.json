@@ -1,20 +1,20 @@
 {
   "level" : 1,
   "questions" : [ {
-    "type" : "ENGLISH_MAORI_TRANSLATE_QUESTION",
-    "correctEnglish" : "Boy",
-    "correctMaori" : "Tama",
+    "type" : "MAORI_ENGLISH_TRANSLATE_QUESTION",
+    "correctEnglish" : "Drink",
+    "correctMaori" : "Inu",
     "milestone" : false,
-    "sentence" : "Translate this word",
+    "sentence" : "What does this word mean?",
     "options" : [
-      "Tama", "Kuri", "Kotiro", "Ngeru"
+      "Fish", "Drink", "Tribe", "Nine", "Small"
     ]
   },    {
     "type": "BLANKS_QUESTION",
-    "correctEnglish": "the dog",
-    "correctMaori": "kuri",
+    "correctEnglish": "boy",
+    "correctMaori": "Tama",
     "milestone": false,
-    "sentence": "The kuri went for a walk",
+    "sentence": "My son is a Tama",
     "options": [
       "Kotiro",
       "Kuri",

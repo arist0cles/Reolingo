@@ -52,47 +52,37 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
-         create the application first this will be the gateway to any future lib requirements
-         this may include:
-                           backend http calls
-                           parsing tools
-                           etc
-         by doing so we can decouple the library and easily add to any future projects you may have as
-         it is generic behaviour
-        */
+        main = this;
+
         mApplication = new ReoApplication(this);
 
-        Module moduleOne = mApplication.loadModuleFromFile(R.raw.moduleone);
+        Module moduleOne = mApplication.loadModuleFromFile(R.raw.mealtime);
         Module moduleTwo = mApplication.loadModuleFromFile(R.raw.moduletwo);
-
-        questions = (ArrayList<Question>) getQuestions(moduleOne);
-
-        setContentView(R.layout.main_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        main = this;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if (previouslyStarted) {
-            askQuestion();
-        }
+
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
         edit.commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        setupButtons();
+        Intent intent = getIntent();
+        if (intent != null) {
+            String StrData = intent.getStringExtra("topic_name");
+            if (StrData != null){
+                if (StrData.equals("Mealtime")){
+                    questions = getQuestions(moduleOne);
+                } else {
+                    questions = getQuestions(moduleTwo);
+                }
+                askQuestion();
+            } else {
+                if (previouslyStarted) {
+                    Intent i = new Intent(MainActivity.this, TopicSelectActivity.class);
+                    startActivity(i);
+                }
+            }
+        }
     }
 
     public List<Question> getQuestions(Module m){
@@ -124,9 +114,6 @@ public class MainActivity extends AppCompatActivity
 
         fiveMinButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //play success sound
-                //popup dialog
-                //on dialog close start asking questions
                 studyTimeChosen(5);
             }
         });
