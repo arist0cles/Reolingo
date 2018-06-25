@@ -9,17 +9,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="Fill in the blank:"
+        android:paddingBottom="@dimen/question_title_bottom_margin"
+        android:text="Finish this sentence:"
         android:textColor="#000"
-        android:textSize="16sp" />
+        android:textSize="@dimen/question_title_font_size" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="Fill in the blank:"
+        android:paddingBottom="@dimen/question_title_bottom_margin"
+        android:text=""
+        android:textColor="#000"
+        android:textSize="32dp" />
+
+    <TextView
+        android:id="@+id/blankAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:text="_____"
         android:textColor="#000"
         android:textSize="24sp" />
 
@@ -28,68 +37,68 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="6"
-        android:paddingTop="50dp"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/answer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/blanks_answer_padding"
         android:layout_weight="1"
         android:text=""
         android:textColor="#000"
-        android:textSize="24sp" />
+        android:textSize="@dimen/question_font_size" />
 
     <TextView
         android:id="@+id/answer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/blanks_answer_padding"
         android:layout_weight="1"
         android:text=""
         android:textColor="#000"
-        android:textSize="24sp" />
+        android:textSize="@dimen/question_font_size" />
 
         <TextView
             android:id="@+id/answer3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/blanks_answer_padding"
             android:layout_weight="1"
             android:text=""
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="@dimen/question_font_size" />
 
         <TextView
             android:id="@+id/answer4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/blanks_answer_padding"
             android:layout_weight="1"
             android:text=""
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="@dimen/question_font_size" />
 
         <TextView
             android:id="@+id/answer5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/blanks_answer_padding"
             android:layout_weight="1"
             android:text=""
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="@dimen/question_font_size" />
 
         <TextView
             android:id="@+id/answer6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/blanks_answer_padding"
             android:layout_weight="1"
             android:text=""
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="@dimen/question_font_size" />
 
     </LinearLayout>
 

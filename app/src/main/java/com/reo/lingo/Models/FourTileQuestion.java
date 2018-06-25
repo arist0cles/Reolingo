@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
+import com.reo.lingo.ImageHelper;
 import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 
@@ -22,7 +24,7 @@ public class FourTileQuestion extends Question {
     public FourTileQuestion(String correctEnglish, String correctMaori,  String questionText, List<String> options, boolean isMilestone){
         this.correctEnglish = correctEnglish;
         this.correctMaori = correctMaori;
-        this.questionText = questionText + "\"" + correctEnglish + "\"?";
+        this.questionText = questionText;
         this.isMilestone = isMilestone;
 
         for(String s : options){
@@ -49,21 +51,9 @@ public class FourTileQuestion extends Question {
         return thingsToPass;
     }
 
-    public AnswerTile makeTile(String opt)
+    public AnswerTile makeTile(String word)
     {
-        switch (opt)
-        {
-            case "Kotiro":
-                return new AnswerTile("Kotiro", R.mipmap.girl, R.raw.kotiro);
-            case "Ngeru":
-                return new AnswerTile("Ngeru", R.mipmap.cat, R.raw.ngeru);
-            case "Tama":
-                return new AnswerTile("Tama", R.mipmap.boy, R.raw.tama);
-            case "Kuri":
-                return new AnswerTile("Kuri", R.mipmap.dog, R.raw.kuri);
-        }
-
-        return null;
+        return new AnswerTile(word, ImageHelper.findImageIdByWord(word), AudioHelper.findAudioIdByWord(word));
     }
 
     public AnswerTile getTile(int num){

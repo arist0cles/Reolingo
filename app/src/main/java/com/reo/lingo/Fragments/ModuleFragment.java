@@ -48,24 +48,4 @@ public class ModuleFragment extends Fragment {
         parent.setupModuleButtons();
     }
 
-    public void setupButtons(){
-//        final TextView blankAnswer = (TextView) getView().findViewById(R.id.blankAnswer);
-//
-//        TextView word = (TextView) getView().findViewById(R.id.word);
-//        word.setText(correctEnglish);
-//
-//        TextView a1 = (TextView) getView().findViewById(R.id.answer1);
-//        a1.setText(options.get(0));
-//        final String a1Text = (String)a1.getText();
-//        a1.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                blankAnswer.setText(a1Text);
-//                currentAnswer = a1Text;
-//                int correctWordSound = getView().getResources().getIdentifier(a1Text.toLowerCase(), "raw", getActivity().getPackageName());
-//                MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-//                mp.start();
-//            }
-//        });
-//
-    }
 }

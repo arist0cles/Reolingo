@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.Fragments.BlanksQuestionFragment;
 import com.reo.lingo.Fragments.EnglishMaoriTranslateQuestionFragment;
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
@@ -35,11 +36,13 @@ import java.util.concurrent.TimeUnit;
 public class ModuleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int QUESTION_PROGRESS_AMOUNT = 10;
+    private static final int QUESTION_PROGRESS_AMOUNT = 9;
+    private static final float CORRECT_VOLUME = 0.4f;
 
     private ModuleActivity ques = this;
     private ProgressBar progress;
     private Button check;
+    private MediaPlayer mp;
 
     private List<Question> questions;
 
@@ -165,8 +168,7 @@ public class ModuleActivity extends AppCompatActivity
         MainActivity.counter++;
         MainActivity.wrongCounter++;
 
-        MediaPlayer incorrect = MediaPlayer.create(ModuleActivity.this, R.raw.incorrect);
-        incorrect.start();
+        playSound("Incorrect");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
         builder.setMessage("That was incorrect. The correct answer was ")
@@ -189,8 +191,7 @@ public class ModuleActivity extends AppCompatActivity
         MainActivity.counter++;
         MainActivity.rightCounter++;
 
-        MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
-        correct.start();
+        playSound("Correct");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
         //Pop up figure here
@@ -241,8 +242,7 @@ public class ModuleActivity extends AppCompatActivity
         MainActivity.counter++;
         MainActivity.rightCounter++;
 
-        MediaPlayer correct = MediaPlayer.create(ModuleActivity.this, R.raw.correct);
-        correct.start();
+        playSound("Correct");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
         builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
@@ -250,9 +250,13 @@ public class ModuleActivity extends AppCompatActivity
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
                                 setProgressBar(Color.GREEN);
-                                Question nextQuestion = questions.get(MainActivity.counter);
-                                currentQuestion = nextQuestion;
-                                start(nextQuestion);
+                                try {
+                                    Question nextQuestion = questions.get(MainActivity.counter);
+                                    currentQuestion = nextQuestion;
+                                    start(nextQuestion);
+                                } catch (IndexOutOfBoundsException e) {
+                                    showFinal();
+                                }
                             }
                         }
                 );
@@ -262,7 +266,7 @@ public class ModuleActivity extends AppCompatActivity
 
     public void start(Question q){
         // Create new fragment and transaction
-        if(MainActivity.counter == 10){
+        if(MainActivity.counter == QUESTION_PROGRESS_AMOUNT){
             showFinal();
             return;
         }
@@ -313,6 +317,22 @@ public class ModuleActivity extends AppCompatActivity
         } else {
             progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT);
         }
+    }
+
+    private void playSound(String word){
+        mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
+        if(word.equalsIgnoreCase("Correct")) {
+            mp.setVolume(CORRECT_VOLUME, CORRECT_VOLUME);
+        }
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                //if reset doesnt give you what you need use mp.release() instead
+                //but dont forget to call MediaPlayer.create
+                //before next mediaPlayer.start() method
+            }
+        });
     }
 
         @Override

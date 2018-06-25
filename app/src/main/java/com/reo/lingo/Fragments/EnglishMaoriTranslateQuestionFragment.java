@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.R;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class EnglishMaoriTranslateQuestionFragment extends Fragment {
     private String correctMaori;
     private String correctEnglish;
     private List<String> options;
+
+    private MediaPlayer mp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,9 +69,7 @@ public class EnglishMaoriTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a1Text);
                 currentAnswer = a1Text;
-                int correctWordSound = getView().getResources().getIdentifier(a1Text.toLowerCase(), "raw", getActivity().getPackageName());
-                MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                mp.start();
+                playSound(a1Text);
             }
         });
 
@@ -79,9 +80,7 @@ public class EnglishMaoriTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a2Text);
                 currentAnswer = a2Text;
-                int correctWordSound = getView().getResources().getIdentifier(a2Text.toLowerCase(), "raw", getActivity().getPackageName());
-                MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                mp.start();
+                playSound(a2Text);
             }
         });
 
@@ -92,9 +91,30 @@ public class EnglishMaoriTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a3Text);
                 currentAnswer = a3Text;
-                int correctWordSound = getView().getResources().getIdentifier(a3Text.toLowerCase(), "raw", getActivity().getPackageName());
-                MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                mp.start();
+                playSound(a3Text);
+            }
+        });
+        TextView a4 = (TextView) getView().findViewById(R.id.answer4);
+        a4.setText(options.get(3));
+        final String a4Text = (String)a4.getText();
+        a4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                blankAnswer.setText(a4Text);
+                currentAnswer = a4Text;
+                playSound(a4Text);
+            }
+        });
+    }
+
+    private void playSound(String word){
+        mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                //if reset doesnt give you what you need use mp.release() instead
+                //but dont forget to call MediaPlayer.create
+                //before next mediaPlayer.start() method
             }
         });
     }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.R;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
     private String correctMaori;
     private String correctEnglish;
     private List<String> options;
+
+    private MediaPlayer mp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +69,7 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a1Text);
                 currentAnswer = a1Text;
+                playSound(a1Text);
             }
         });
 
@@ -76,6 +80,7 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a2Text);
                 currentAnswer = a2Text;
+                playSound(a2Text);
             }
         });
 
@@ -86,6 +91,7 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a3Text);
                 currentAnswer = a3Text;
+                playSound(a3Text);
             }
         });
 
@@ -95,6 +101,19 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
                 int correctWordSound = getView().getResources().getIdentifier(correctMaori.toLowerCase(), "raw", getActivity().getPackageName());
                 MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
                 mp.start();
+            }
+        });
+    }
+
+    private void playSound(String word){
+        mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                //if reset doesnt give you what you need use mp.release() instead
+                //but dont forget to call MediaPlayer.create
+                //before next mediaPlayer.start() method
             }
         });
     }

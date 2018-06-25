@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 
@@ -25,11 +26,13 @@ import java.util.List;
 public class BlanksQuestionFragment extends Fragment {
     private Context currentContext;
     private boolean isMilestone;
-    private String currentAnswer = "_____";
+    private String currentAnswer;
     private String correctMaori;
     private String correctEnglish;
     private List<String> options;
     private String questionText;
+
+    private MediaPlayer mp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,11 +47,8 @@ public class BlanksQuestionFragment extends Fragment {
 
         this.correctMaori = savedInstanceState.getString("correctMaori");
         this.questionText = savedInstanceState.getString("questionText");
-
         this.correctEnglish = savedInstanceState.getString("correctEnglish");
-
         this.isMilestone = savedInstanceState.getBoolean("isMilestone");
-
         this.options = savedInstanceState.getStringArrayList("options");
 
         currentContext = view.getContext();
@@ -57,19 +57,18 @@ public class BlanksQuestionFragment extends Fragment {
     }
 
     public void setup(){
-        final TextView q = (TextView) getView().findViewById(R.id.question);
-        q.setText(blankify(questionText));
+        final TextView blankAnswer = (TextView) getView().findViewById(R.id.blankAnswer);
+        TextView q = (TextView) getView().findViewById(R.id.question);
+        q.setText(questionText);
 
         TextView a1 = (TextView) getView().findViewById(R.id.answer1);
         a1.setText(options.get(0));
         final String a1Text = (String)a1.getText();
         a1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                q.setText(mergeSentence(a1Text));
+                blankAnswer.setText(a1Text);
                 currentAnswer = a1Text;
-                //int correctWordSound = getView().getResources().getIdentifier(a2Text.toLowerCase(), "raw", getActivity().getPackageName());
-                //MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                //mp.start();
+                playSound(a1Text);
             }
         });
 
@@ -78,11 +77,9 @@ public class BlanksQuestionFragment extends Fragment {
         final String a2Text = (String)a2.getText();
         a2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                q.setText(mergeSentence(a2Text));
+                blankAnswer.setText(a2Text);
                 currentAnswer = a2Text;
-                //int correctWordSound = getView().getResources().getIdentifier(a2Text.toLowerCase(), "raw", getActivity().getPackageName());
-                //MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                //mp.start();
+                playSound(a2Text);
             }
         });
 
@@ -91,11 +88,9 @@ public class BlanksQuestionFragment extends Fragment {
         final String a3Text = (String)a3.getText();
         a3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                q.setText(mergeSentence(a3Text));
+                blankAnswer.setText(a3Text);
                 currentAnswer = a3Text;
-                //int correctWordSound = getView().getResources().getIdentifier(a2Text.toLowerCase(), "raw", getActivity().getPackageName());
-                //MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                //mp.start();
+                playSound(a3Text);
             }
         });
 
@@ -104,25 +99,24 @@ public class BlanksQuestionFragment extends Fragment {
         final String a4Text = (String)a4.getText();
         a4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                q.setText(mergeSentence(a4Text));
+                blankAnswer.setText(a4Text);
                 currentAnswer = a4Text;
-                //int correctWordSound = getView().getResources().getIdentifier(a2Text.toLowerCase(), "raw", getActivity().getPackageName());
-                //MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                //mp.start();
+                playSound(a4Text);
             }
         });
     }
 
-    public String blankify(String text){
-        String blanked = text.replace(correctMaori, "_____");
-        return blanked;
-    }
-
-    public String mergeSentence(String clicked){
-        TextView q = (TextView) getView().findViewById(R.id.question);
-        String toBeReplaced = (String)q.getText();
-        String wordAdded = toBeReplaced.replace(currentAnswer, clicked);
-        return wordAdded;
+    private void playSound(String word){
+        mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                //if reset doesnt give you what you need use mp.release() instead
+                //but dont forget to call MediaPlayer.create
+                //before next mediaPlayer.start() method
+            }
+        });
     }
 
     public String getSelected(){

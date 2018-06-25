@@ -5,4 +5,21 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <!-- Custom -->
+    <dimen name="question_image_size">100dp</dimen>
+    <dimen name="question_image_left_margin">32dp</dimen>
+    <dimen name="question_image_right_margin">32dp</dimen>
+    <dimen name="question_image_top_margin">2dp</dimen>
+
+    <dimen name="question_title_font_size">24dp</dimen>
+    <dimen name="question_title_bottom_margin">16dp</dimen>
+
+    <dimen name="question_font_size">16dp</dimen>
+
+    <dimen name="question_radio_button_left_margin">8dp</dimen>
+    <dimen name="question_radio_button_right_margin">0dp</dimen>
+
+    <dimen name="question_answer_aligner">4dp</dimen>
+
+    <dimen name="blanks_answer_padding">6dp</dimen>
 </resources>

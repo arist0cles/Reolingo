@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.reo.lingo.Activities.MainActivity;
 import com.reo.lingo.Activities.ModuleActivity;
+import com.reo.lingo.AudioHelper;
 import com.reo.lingo.Parceable.AnswerTile;
 import com.reo.lingo.R;
 
@@ -32,6 +33,8 @@ public class FourTileQuestionFragment extends Fragment {
     private Context currentContext;
 
     private boolean isMilestone;
+
+    private MediaPlayer mp;
 
     private RelativeLayout tile1;
     private RelativeLayout tile2;
@@ -120,9 +123,8 @@ public class FourTileQuestionFragment extends Fragment {
                 selected = a1.getAnswer();
                 unhighlight();
                 highlight(tile1);
+                playSound(a1.getAnswer());
                 radioButton1.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a1.getSound());
-                mp.start();
             }
         });
 
@@ -131,9 +133,8 @@ public class FourTileQuestionFragment extends Fragment {
                 selected = a2.getAnswer();
                 unhighlight();
                 highlight(tile2);
+                playSound(a2.getAnswer());
                 radioButton2.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a2.getSound());
-                mp.start();
             }
         });
 
@@ -142,9 +143,8 @@ public class FourTileQuestionFragment extends Fragment {
                 selected = a3.getAnswer();
                 unhighlight();
                 highlight(tile3);
+                playSound(a3.getAnswer());
                 radioButton3.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a3.getSound());
-                mp.start();
             }
         });
 
@@ -153,20 +153,16 @@ public class FourTileQuestionFragment extends Fragment {
                 selected = a4.getAnswer();
                 unhighlight();
                 highlight(tile4);
+                playSound(a4.getAnswer());
                 radioButton4.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a4.getSound());
-                mp.start();
             }
         });
 
-        //RadioButton Listeners
         radioButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 unhighlight();
                 highlight(tile1);
                 radioButton1.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a1.getSound());
-                mp.start();
             }
         });
 
@@ -175,8 +171,6 @@ public class FourTileQuestionFragment extends Fragment {
                 unhighlight();
                 highlight(tile2);
                 radioButton2.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a2.getSound());
-                mp.start();
             }
         });
 
@@ -185,8 +179,6 @@ public class FourTileQuestionFragment extends Fragment {
                 unhighlight();
                 highlight(tile3);
                 radioButton3.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a3.getSound());
-                mp.start();
             }
         });
 
@@ -195,16 +187,27 @@ public class FourTileQuestionFragment extends Fragment {
                 unhighlight();
                 highlight(tile4);
                 radioButton4.setChecked(true);
-                MediaPlayer mp = MediaPlayer.create(currentContext, a4.getSound());
-                mp.start();
             }
         });
 
     }
 
+    private void playSound(String word){
+        mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                //if reset doesnt give you what you need use mp.release() instead
+                //but dont forget to call MediaPlayer.create
+                //before next mediaPlayer.start() method
+            }
+        });
+    }
+
     public void highlight(RelativeLayout tile){
         tile.setBackground(getResources().getDrawable(R.drawable.background_border));
-        tile.setBackgroundColor(getResources().getColor(R.color.red));
+        tile.setBackgroundColor(getResources().getColor(R.color.purple));
         highlighted = tile;
     }
 
