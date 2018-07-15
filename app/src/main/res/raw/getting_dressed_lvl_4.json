@@ -1,0 +1,130 @@
+{
+  "level": 4,
+  "questions": [
+    {
+      "type": "FOUR_TILE_QUESTION",
+      "correctEnglish": "Washing machine",
+      "correctMaori": "Pūrere horoi kākahu",
+      "milestone": false,
+      "questionText": "Translate Washing Machine",
+      "options": [
+        "Kameta",
+        "Hatete",
+        "Raina Kākahu",
+        "Pūrere horoi kākahu"
+      ]
+    },
+    {
+      "type": "ENGLISH_MAORI_TRANSLATE_QUESTION",
+      "correctEnglish": "Put your big t-shirt in the wardrobe",
+      "correctMaori": "Rau atu tō tīhāte nui ki te wātaropa",
+      "milestone": false,
+      "questionText": "Translate this:",
+      "options": [
+        "Tangohia",
+        "Tū",
+        "Waka",
+        "Rau atu tō tīhāte nui ki te wātaropa"
+      ]
+    },
+    {
+      "type": "MAORI_ENGLISH_TRANSLATE_QUESTION",
+      "correctEnglish": "Where are our green gloves?",
+      "correctMaori": "Anei ō tokena kākāriki",
+      "milestone": false,
+      "questionText": "What does Anei ō tokena kākāriki mean?",
+      "options": [
+        "Where are our green gloves?",
+        "Here are my blue socks",
+        "Pass me the dirty clothes",
+        "Wear the red shirt today"
+      ]
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "On top",
+      "correctMaori": "Runga",
+      "milestone": false,
+      "questionText": "Your shirt is on top of the drawers: Kei __ tō tīhāte i ngā hautō",
+      "options": [
+        "Raro",
+        "Te",
+        "Roto",
+        "Runga",
+        "Nga"
+      ]
+    },
+    {
+      "type" : "TYPE_QUESTION",
+      "correctEnglish" : "Where is the jacket?",
+      "correctMaori" : "Kei whea te hakete?",
+      "milestone" : false,
+      "questionText" : "How do you say where is the jacket? Type your answer."
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "First, fold your clothes",
+      "correctMaori": "Tuatahi",
+      "milestone": false,
+      "questionText": "First, fold your clothes: _____, whātuia ngā kākahu",
+      "options": [
+        "Aporo",
+        "Horoi",
+        "Tuatahi",
+        "Runga"
+      ]
+    },
+    {
+      "type": "ENGLISH_MAORI_TRANSLATE_QUESTION",
+      "correctEnglish": "Awesome, where was your hat?",
+      "correctMaori": "Rawe! I whēa tō pōtae?",
+      "milestone": false,
+      "questionText": "Translate:",
+      "options": [
+        "Rawe! Kei whēa te pōtae?",
+        "i whea ō pōtae?",
+        "Rawe! I whea ngā pōtae?",
+        "Rawe! I whēa tō pōtae?"
+      ]
+    },
+    {
+      "type": "MAORI_ENGLISH_TRANSLATE_QUESTION",
+      "correctEnglish": "Wear your red T-shirt",
+      "correctMaori": "Whakamau to tīhāte whero",
+      "milestone": false,
+      "questionText": "Translate:",
+      "options": [
+        "Wear your red T-shirt",
+        "Here are my blue socks",
+        "Pass me the dirty clothes",
+        "Wear the green one"
+      ]
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "First, fold your clothes",
+      "correctMaori": "Kei te kuhu kākahu matengi koe?",
+      "milestone": false,
+      "questionText": "Are you putting on warm clothes? ___ te kuhu kākahu_____ koe?",
+      "options": [
+        "Tīhāte",
+        "Whakapaitia",
+        "Horoi",
+        "Kei te kuhu kākahu matengi koe?"
+      ]
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "You should change your clothes",
+      "correctMaori": "Me panoni koe i ō Kākahu",
+      "milestone": false,
+      "questionText": "Finish this sentence: change your clothes: Me panoni ___ i ō ___",
+      "options": [
+        "Kia tere",
+        "Kua mutu",
+        "E noho",
+        "Me panoni koe i ō Kākahu"
+      ]
+    }
+  ]
+}

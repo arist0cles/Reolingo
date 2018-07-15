@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.reo.lingo.AudioHelper;
+import com.reo.lingo.Helpers.AudioHelper;
 import com.reo.lingo.R;
 
 import java.util.List;
@@ -69,7 +69,7 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a1Text);
                 currentAnswer = a1Text;
-                playSound(a1Text);
+                //playSound(a1Text);
             }
         });
 
@@ -80,7 +80,7 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a2Text);
                 currentAnswer = a2Text;
-                playSound(a2Text);
+                //playSound(a2Text);
             }
         });
 
@@ -91,16 +91,14 @@ public class MaoriEnglishTranslateQuestionFragment extends Fragment {
             public void onClick(View v) {
                 blankAnswer.setText(a3Text);
                 currentAnswer = a3Text;
-                playSound(a3Text);
+                //playSound(a3Text);
             }
         });
 
         ImageButton soundButton = (ImageButton) getView().findViewById(R.id.soundButton);
         soundButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int correctWordSound = getView().getResources().getIdentifier(correctMaori.toLowerCase(), "raw", getActivity().getPackageName());
-                MediaPlayer mp = MediaPlayer.create(currentContext, correctWordSound);
-                mp.start();
+                playSound(correctMaori);
             }
         });
     }

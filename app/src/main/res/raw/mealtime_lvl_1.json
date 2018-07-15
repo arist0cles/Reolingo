@@ -1,0 +1,127 @@
+{
+  "level": 1,
+  "questions": [
+    {
+      "type": "FOUR_TILE_QUESTION",
+      "correctEnglish": "Breakfast time",
+      "correctMaori": "Wa te parakūihi",
+      "milestone": false,
+      "questionText": "How do you say Breakfast time?",
+      "options": [
+        "Wa te horoi",
+        "Wa te moenga",
+        "Wa te pūrakau",
+        "Wa te parakūihi"
+      ]
+    },
+    {
+      "type": "BLANKS_QUESTION",
+      "correctEnglish": "Food",
+      "correctMaori": "Kai",
+      "milestone": false,
+      "questionText": "Finished your food? \n Kua mutu to ___?",
+      "options": [
+        "Mahi",
+        "Inu",
+        "Oma",
+        "Kai"
+          ]
+        },
+    {
+      "type" : "FOUR_TILE_QUESTION",
+      "correctEnglish" : "drink",
+      "correctMaori" : "Inu",
+      "milestone" : false,
+      "questionText" : "Which of these is Drink?",
+      "options" : [
+        "Inu", "Kuri", "Tama", "Ngeru"
+      ]
+    },
+    {
+          "type" : "ENGLISH_MAORI_TRANSLATE_QUESTION",
+          "correctEnglish" : "Delicious",
+          "correctMaori" : "Tino reka",
+          "milestone" : false,
+          "questionText" : "Translate:",
+          "options" : [
+            "Hu", "Kawhe", "Nga kapu", "Tino reka"
+          ]
+        },
+    {
+      "type" : "TYPE_QUESTION",
+      "correctEnglish" : "Sit down",
+      "correctMaori" : "E noho",
+      "milestone" : false,
+      "questionText" : "Type sit down in Maori"
+    },
+    {
+          "type" : "BLANKS_QUESTION",
+          "correctEnglish" : "Drink",
+          "correctMaori" : "Inu",
+          "milestone" : true,
+          "questionText" : "Do you want a drink? \n He ___ mau?",
+          "options" : [
+            "Heihei", "Wera", "Moenga", "Inu"
+          ]
+    },
+        {
+          "type": "ENGLISH_MAORI_TRANSLATE_QUESTION",
+          "correctEnglish": "Don't eat",
+          "correctMaori": "Kaua e kai",
+          "milestone": false,
+          "questionText": "Translate: Don't eat",
+          "options": [
+            "Kaua e noho",
+            "Kaua e inu",
+            "Kaua e korero",
+            "Kaua e kai"
+          ]
+        },
+    {
+          "type": "ENGLISH_MAORI_TRANSLATE_QUESTION",
+          "correctEnglish": "Hot",
+          "correctMaori": "Wera",
+          "milestone": false,
+          "questionText": "Translate Hot",
+          "options": [
+            "Makariri",
+            "Mahana",
+            "Makuku",
+            "Wera"
+          ]
+    },
+    {
+          "type": "FOUR_TILE_QUESTION",
+          "correctEnglish": "Toast",
+          "correctMaori": "Tohi",
+          "milestone": false,
+          "questionText": "Which of these is Toast?",
+          "options": [
+            "Wai maori",
+            "Wītī pīki",
+            "Perēti",
+            "Tohi"
+          ]
+    },
+    {
+      "type" : "TYPE_QUESTION",
+      "correctEnglish" : "Apple",
+      "correctMaori" : "Aporo",
+      "milestone" : false,
+      "questionText" : "Finish this sentence: Here is your apple: Anei to _____"
+    },
+    {
+     "type": "FOUR_TILE_QUESTION",
+     "correctEnglish": "A red cup",
+     "correctMaori": "He kapu whero",
+     "milestone": false,
+     "questionText": "Which of these is a red cup",
+     "options": [
+       "He pereti mawhero",
+       "Ngā kapu whero",
+       "He toka kowhai",
+       "He kapu whero"
+            ]
+          }
+  ]
+}

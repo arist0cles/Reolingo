@@ -12,13 +12,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.reo.lingo.AudioHelper;
-import com.reo.lingo.Parceable.AnswerTile;
+import com.reo.lingo.Helpers.AudioHelper;
 import com.reo.lingo.R;
 
 import java.util.List;

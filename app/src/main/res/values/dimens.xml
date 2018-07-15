@@ -5,16 +5,28 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
     <!-- Custom -->
+    <dimen name="topic_text_size">32sp</dimen>
+    <dimen name="topic_text_top_margin">12dp</dimen>
+
+    <dimen name="module_text_size">32sp</dimen>
+    <dimen name="module_lock_text_size">12sp</dimen>
+    <dimen name="module_image_size">100dp</dimen>
+    <dimen name="module_text_top_margin">24dp</dimen>
+    <dimen name="module_locked_text_left_margin">18dp</dimen>
+    <dimen name="module_text_left_margin">16dp</dimen>
+
     <dimen name="question_image_size">100dp</dimen>
     <dimen name="question_image_left_margin">32dp</dimen>
     <dimen name="question_image_right_margin">32dp</dimen>
     <dimen name="question_image_top_margin">2dp</dimen>
 
-    <dimen name="question_title_font_size">24dp</dimen>
-    <dimen name="question_title_bottom_margin">16dp</dimen>
+    <dimen name="question_title_font_size">24sp</dimen>
+    <dimen name="question_title_bottom_margin">24dp</dimen>
+    <dimen name="question_title_top_margin">8dp</dimen>
 
-    <dimen name="question_font_size">16dp</dimen>
+    <dimen name="question_font_size">16sp</dimen>
 
     <dimen name="question_radio_button_left_margin">8dp</dimen>
     <dimen name="question_radio_button_right_margin">0dp</dimen>

@@ -1,6 +1,7 @@
 package com.reo.lingo.Activities;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,30 +23,35 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.reo.lingo.AudioHelper;
+import com.reo.lingo.Helpers.AudioHelper;
 import com.reo.lingo.Fragments.BlanksQuestionFragment;
 import com.reo.lingo.Fragments.EnglishMaoriTranslateQuestionFragment;
 import com.reo.lingo.Fragments.FourTileQuestionFragment;
 import com.reo.lingo.Fragments.MaoriEnglishTranslateQuestionFragment;
 import com.reo.lingo.Fragments.ModuleFragment;
-import com.reo.lingo.Models.Question;
+import com.reo.lingo.Fragments.TypeQuestionFragment;
+import com.reo.lingo.Models.Questions.Question;
 import com.reo.lingo.R;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.reo.lingo.Activities.MainActivity.balance2DP;
+import static com.reo.lingo.Activities.MainActivity.getMoneyColor;
+
 public class ModuleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int QUESTION_PROGRESS_AMOUNT = 9;
+    //private static final int QUESTION_PROGRESS_AMOUNT = 11;
     private static final float CORRECT_VOLUME = 0.4f;
 
-    private ModuleActivity ques = this;
+    //private ModuleActivity ques = this;
     private ProgressBar progress;
     private Button check;
     private MediaPlayer mp;
 
     private List<Question> questions;
+    private List<Question> wrong;
 
     private android.support.v4.app.Fragment currentFragment;
     private Question currentQuestion;
@@ -54,6 +61,8 @@ public class ModuleActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTitle(Html.fromHtml("<font color='"+getMoneyColor()+"'>$"+balance2DP()+" </font>"));
 
         startMillis = System.currentTimeMillis();
 
@@ -130,7 +139,7 @@ public class ModuleActivity extends AppCompatActivity
         if(currentFragment.getClass() == FourTileQuestionFragment.class){
             FourTileQuestionFragment f = (FourTileQuestionFragment) currentFragment;
             selected = f.getSelected();
-            correctAnswer = currentQuestion.getCorrectEnglish();
+            correctAnswer = currentQuestion.getCorrectMaori();
         } else if (currentFragment.getClass() == MaoriEnglishTranslateQuestionFragment.class){
             MaoriEnglishTranslateQuestionFragment f = (MaoriEnglishTranslateQuestionFragment) currentFragment;
             selected = f.getSelected();
@@ -141,6 +150,10 @@ public class ModuleActivity extends AppCompatActivity
             correctAnswer = currentQuestion.getCorrectMaori();
         } else if (currentFragment.getClass() == BlanksQuestionFragment.class){
             BlanksQuestionFragment f = (BlanksQuestionFragment) currentFragment;
+            selected = f.getSelected();
+            correctAnswer = currentQuestion.getCorrectMaori();
+        } else if (currentFragment.getClass() == TypeQuestionFragment.class){
+            TypeQuestionFragment f = (TypeQuestionFragment) currentFragment;
             selected = f.getSelected();
             correctAnswer = currentQuestion.getCorrectMaori();
         }
@@ -165,20 +178,27 @@ public class ModuleActivity extends AppCompatActivity
 
     public void showIncorrect() {
         final Context currentContext = this.currentContext;
+        questions.add(questions.get(MainActivity.counter));
+        String answer = questions.get(MainActivity.counter).getCorrectMaori();
         MainActivity.counter++;
         MainActivity.wrongCounter++;
 
         playSound("Incorrect");
-
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.WrongDialogTheme);
-        builder.setMessage("That was incorrect. The correct answer was ")
+        builder.setMessage("The correct answer was "+answer)
+                .setIcon(R.drawable.dislike)
                 .setTitle("Aue")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
+                                MainActivity.balance -= 0.1;
+                                setTitle(Html.fromHtml("<font color='"+getMoneyColor()+"'>$"+balance2DP()+" </font>"));
                                 setProgressBar(Color.RED);
-
-                                currentQuestion = questions.get(MainActivity.counter);
-                                start(questions.get(MainActivity.counter));
+                                if(MainActivity.counter < questions.size()) {
+                                    currentQuestion = questions.get(MainActivity.counter);
+                                    start(questions.get(MainActivity.counter));
+                                } else {
+                                    showFinal();
+                                }
                             }
                         }
                 );
@@ -196,9 +216,12 @@ public class ModuleActivity extends AppCompatActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
         //Pop up figure here
         builder.setMessage("Great job, you're halfway there!!!")
+                .setIcon(R.drawable.like)
                 .setTitle("Ka Mau Te WEHI!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
+                                MainActivity.balance += 0.1;
+                                setTitle(Html.fromHtml("<font color='"+getMoneyColor()+"'>$"+balance2DP()+" </font>"));
                                 setProgressBar(Color.GREEN);
                                 currentQuestion = questions.get(MainActivity.counter);
                                 start(questions.get(MainActivity.counter));
@@ -225,11 +248,13 @@ public class ModuleActivity extends AppCompatActivity
                         .setTitle("Ka Mau Te WEHI!")
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface i, int j) {
+//                                      MainActivity.balance += 0.1;
+                                        setTitle(Html.fromHtml("<font color='"+getMoneyColor()+"'>$"+balance2DP()+" </font>"));
                                         MainActivity.counter = 0;
                                         MainActivity.wrongCounter = 0;
                                         MainActivity.rightCounter = 0;
-                                        setProgressBar(Color.BLACK);
-                                        start(questions.get(0));
+                                        final Intent intent = new Intent(ModuleActivity.this, TopicSelectActivity.class);
+                                        startActivity(intent);
                                     }
                                 }
                         );
@@ -245,10 +270,13 @@ public class ModuleActivity extends AppCompatActivity
         playSound("Correct");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(currentContext, R.style.RightDialogTheme);
-        builder.setMessage("Correct. Your progress score has increased to " + MainActivity.rightCounter)
+        builder.setMessage("Your progress score has increased to " + MainActivity.rightCounter)
+                .setIcon(R.drawable.like)
                 .setTitle("Ka Pai!")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface i, int j) {
+                                MainActivity.balance += 0.1;
+                                setTitle(Html.fromHtml("<font color='"+getMoneyColor()+"'>$"+balance2DP()+" </font>"));
                                 setProgressBar(Color.GREEN);
                                 try {
                                     Question nextQuestion = questions.get(MainActivity.counter);
@@ -266,10 +294,10 @@ public class ModuleActivity extends AppCompatActivity
 
     public void start(Question q){
         // Create new fragment and transaction
-        if(MainActivity.counter == QUESTION_PROGRESS_AMOUNT){
-            showFinal();
-            return;
-        }
+//        if(MainActivity.counter == QUESTION_PROGRESS_AMOUNT){
+//            showFinal();
+//            return;
+//        }
 
         currentFragment = q.getFragment();
         Bundle bundle = q.getBundle();
@@ -313,9 +341,9 @@ public class ModuleActivity extends AppCompatActivity
         progress.getProgressDrawable().setColorFilter(
                 colour, android.graphics.PorterDuff.Mode.SRC_IN);
         if (android.os.Build.VERSION.SDK_INT >= 24) {
-            progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT, true);
+            progress.setProgress(MainActivity.counter*questions.size(), true);
         } else {
-            progress.setProgress(MainActivity.counter*QUESTION_PROGRESS_AMOUNT);
+            progress.setProgress(MainActivity.counter*questions.size());
         }
     }
 

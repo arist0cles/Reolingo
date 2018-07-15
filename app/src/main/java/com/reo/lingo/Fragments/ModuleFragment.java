@@ -40,11 +40,7 @@ public class ModuleFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         savedInstanceState = getArguments();
 
-        //setQuestionText(savedInstanceState.getString("questionTitle"));
-        //setupButtons();
-
         currentContext = view.getContext();
-        //setupButtons();
         parent.setupModuleButtons();
     }
 

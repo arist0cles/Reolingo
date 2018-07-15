@@ -11,7 +11,9 @@
         android:id="@+id/questionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/question_title_bottom_margin"
+        android:layout_marginBottom="@dimen/question_title_bottom_margin"
+        android:layout_marginTop="@dimen/question_title_top_margin"
+        style="@style/Base.TextAppearance.AppCompat.Title"
         android:text=""
         android:textColor="#000"
         android:textSize="@dimen/question_title_font_size" />

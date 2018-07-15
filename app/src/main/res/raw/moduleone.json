@@ -1,6 +1,7 @@
 {
   "level" : 1,
-  "questions" : [ {
+  "questions" : [
+    {
     "type" : "MAORI_ENGLISH_TRANSLATE_QUESTION",
     "correctEnglish" : "Drink",
     "correctMaori" : "Inu",
