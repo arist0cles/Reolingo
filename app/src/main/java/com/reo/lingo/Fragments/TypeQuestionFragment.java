@@ -46,6 +46,9 @@ public class TypeQuestionFragment extends Fragment {
 
         currentContext = view.getContext();
 
+        EditText et = (EditText) getView().findViewById(R.id.blankAnswer);
+        et.getLayoutParams().width = correctMaori.length() * 50;
+
         setup();
     }
 

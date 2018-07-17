@@ -25,11 +25,11 @@
 
     <EditText
         android:id="@+id/blankAnswer"
-        android:layout_width="80dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:inputType="text"
         android:textColor="#000"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

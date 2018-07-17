@@ -29,13 +29,13 @@
     },
     {
       "type": "MAORI_ENGLISH_TRANSLATE_QUESTION",
-      "correctEnglish": "Where are our green gloves?",
+      "correctEnglish": "Here are your green socks",
       "correctMaori": "Anei ō tokena kākāriki",
       "milestone": false,
       "questionText": "What does Anei ō tokena kākāriki mean?",
       "options": [
         "Where are our green gloves?",
-        "Here are my blue socks",
+        "Here are your green socks",
         "Pass me the dirty clothes",
         "Wear the red shirt today"
       ]
