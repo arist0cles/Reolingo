@@ -185,6 +185,9 @@ public class FourTileQuestionFragment extends Fragment {
     }
 
     private void playSound(String word){
+        if(mp!=null){
+            mp.stop();
+        }
         mp = MediaPlayer.create(currentContext, AudioHelper.findAudioIdByWord(word));
         mp.start();
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
